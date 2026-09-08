@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ProductGrid from '@/components/catalogue/ProductGrid.astro';
 import ContactBand from '@/components/shared/ContactBand.astro';
+import TrustMetrics from '@/components/shared/TrustMetrics.astro';
 import Icon from '@/components/shared/Icon.astro';
 import { getFeaturedProducts } from '@/lib/products';
 const featured = await getFeaturedProducts(3);
@@ -64,6 +65,8 @@ const featured = await getFeaturedProducts(3);
   </section>
 
   <div class="container section--compact"><ContactBand /></div>
+
+  <TrustMetrics />
 </BaseLayout>
 <style>
   .hero { position: relative; overflow: hidden; padding: clamp(56px, 8vw, 112px) 0 0; background: radial-gradient(circle at 78% 30%, #eadcc5 0, transparent 33%), var(--ivory); }

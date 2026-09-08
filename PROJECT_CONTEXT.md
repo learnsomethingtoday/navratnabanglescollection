@@ -33,6 +33,7 @@ Visitors enquire by telephone or WhatsApp instead of purchasing through the webs
 - Service area: clients in Visakhapatnam only
 - Expected response time: usually within 2 business hours
 - Business hours: 9:00 AM–9:00 PM; operating days have not been specified
+- Approved trust metrics: 300+ customers served and 1,000+ bangles sold
 - Address: intentionally not collected or displayed
 - Business hours: dummy placeholder until supplied
 - Google Maps location: intentionally not included
@@ -153,6 +154,8 @@ The Home and About pages should prominently communicate the following positionin
 - Depending on construction, a piece may also be lighter and easier to wear regularly.
 
 Keep these statements qualified because final materials, finishes, weights, and prices have not yet been supplied. Never state that every product is cheaper or lighter than gold, and never describe any jewellery as risk-free or impossible to lose. Each piece should still be handled and stored with care.
+
+The approved trust metrics appear in the self-contained `TrustMetrics.astro` component at the end of the Home page, after the enquiry section: **300+ customers served** and **1,000+ bangles sold**, with locally focused Visakhapatnam service. The panel uses a light champagne-gold gradient with deep-maroon text so it remains distinct from the dark-maroon footer. It must not use a green/emerald or footer-like dark background. Do not increase or alter these user-supplied figures without approval.
 
 ## Local development on macOS
 

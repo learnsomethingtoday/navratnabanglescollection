@@ -56,4 +56,16 @@ describe('catalogue foundations', () => {
     expect(siteConfig.responseTime).toBe('Usually replies within 2 business hours');
     expect(siteConfig.hours).toBe('9:00 AM–9:00 PM');
   });
+
+  it('displays the approved customer and sales metrics at the end of the home page', () => {
+    const homePage = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
+    const trustSectionPosition = homePage.indexOf('<TrustMetrics />');
+    const contactBandPosition = homePage.indexOf('<ContactBand />');
+    expect(trustSectionPosition).toBeGreaterThan(contactBandPosition);
+    const trustComponent = readFileSync(join(projectRoot, 'src/components/shared/TrustMetrics.astro'), 'utf8');
+    expect(trustComponent).toContain('300<span>+</span>');
+    expect(trustComponent).toContain('Customers served');
+    expect(trustComponent).toContain('1,000<span>+</span>');
+    expect(trustComponent).toContain('Bangles sold');
+  });
 });
