@@ -30,9 +30,12 @@ Visitors enquire by telephone or WhatsApp instead of purchasing through the webs
 - Initial catalogue: nine placeholder products
 - Telephone and WhatsApp: `+91 7207742722`
 - WhatsApp URL number: `917207742722`
-- Address: dummy placeholder until supplied
+- Service area: clients in Visakhapatnam only
+- Expected response time: usually within 2 business hours
+- Business hours: 9:00 AM–9:00 PM; operating days have not been specified
+- Address: intentionally not collected or displayed
 - Business hours: dummy placeholder until supplied
-- Google Maps location: dummy placeholder until supplied
+- Google Maps location: intentionally not included
 - Social-media profiles: dummy placeholders until supplied
 - Language: English
 
@@ -74,7 +77,7 @@ Astro was chosen because the site is primarily static and benefits from minimal 
 - `/catalogue/` — Searchable and filterable product grid
 - `/catalogue/[slug]/` — Generated product-detail pages
 - `/about/` — Navratna background, brand positioning, styling, and material-dependent comparisons
-- `/contact/` — Call and WhatsApp actions plus dummy location/social details
+- `/contact/` — Call and WhatsApp actions plus dummy hours and social details; no address or map
 - `/404.html` — Custom not-found page
 
 The production build currently generates 14 pages: the five primary/static pages and nine product-detail pages.
@@ -130,11 +133,26 @@ The interface is mobile-first, supports 320px-wide screens, preserves visible ke
 
 There is no contact form or backend submission.
 
+A prominent notice appears above the primary navigation on every page: **“Catalogue only — no online ordering.”** The notice includes direct Call and WhatsApp links. Reusable enquiry panels reinforce that online ordering is unavailable and direct visitors to those two contact methods.
+
+Reusable enquiry panels, the Contact page, and the footer also state that the business currently serves clients in Visakhapatnam only and usually replies within two business hours. This is a service-area statement, not a physical business address.
+
 - Telephone actions use `tel:+917207742722`.
 - WhatsApp actions use `https://wa.me/917207742722`.
 - Product enquiries prefill the product name and SKU.
 - General enquiries prefill a catalogue-information message.
 - Every enquiry is conversational only and does not create an order.
+
+## Approved USP messaging
+
+The Home and About pages should prominently communicate the following positioning:
+
+- Navratna bangles can offer a rich, colourful, gold-inspired appearance suitable for everyday wear, functions, and celebrations.
+- When a confirmed design uses non-gold, gold-finished, or otherwise lower-cost materials, it may be more affordable than a solid-gold bangle.
+- A lower-cost alternative may involve less financial exposure and therefore less everyday concern than wearing high-value gold jewellery.
+- Depending on construction, a piece may also be lighter and easier to wear regularly.
+
+Keep these statements qualified because final materials, finishes, weights, and prices have not yet been supplied. Never state that every product is cheaper or lighter than gold, and never describe any jewellery as risk-free or impossible to lose. Each piece should still be handled and stored with care.
 
 ## Local development on macOS
 
@@ -191,7 +209,7 @@ The implementation was verified with:
 - Replace all nine preview products with verified product information.
 - Add final product photography and alt text.
 - Confirm the business name and complete any trademark/domain checks.
-- Replace dummy address, hours, map, and social links.
+- Replace dummy social links.
 - Replace `https://example.com` in `astro.config.mjs` with the production domain.
 - Reconfirm the telephone and WhatsApp number.
 - Run `pnpm test` and `pnpm build`.

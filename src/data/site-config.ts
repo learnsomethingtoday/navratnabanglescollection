@@ -5,9 +5,9 @@ export const siteConfig = {
   phoneDisplay: '+91 72077 42722',
   phoneHref: '+917207742722',
   whatsappNumber: '917207742722',
-  address: 'Dummy address — replace before launch',
-  hours: 'Dummy business hours — replace before launch',
-  mapLabel: 'Google Maps location placeholder',
+  responseTime: 'Usually replies within 2 business hours',
+  serviceArea: 'Serving clients in Visakhapatnam only',
+  hours: '9:00 AM–9:00 PM',
   socialLinks: [
     { label: 'Instagram', href: '#', placeholder: true },
     { label: 'Facebook', href: '#', placeholder: true },

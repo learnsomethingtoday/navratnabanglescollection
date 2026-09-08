@@ -36,4 +36,24 @@ describe('catalogue foundations', () => {
     const productCard = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
     expect(productCard).toContain('/catalogue/${data.slug}/');
   });
+
+  it('shows the no-online-ordering message with direct enquiry options site-wide', () => {
+    const header = readFileSync(join(projectRoot, 'src/components/layout/Header.astro'), 'utf8');
+    expect(header).toContain('Catalogue only — no online ordering.');
+    expect(header).toContain('tel:${siteConfig.phoneHref}');
+    expect(header).toContain('whatsappUrl(');
+  });
+
+  it('does not request or display a physical business address', () => {
+    const contactPage = readFileSync(join(projectRoot, 'src/pages/contact.astro'), 'utf8');
+    const siteConfiguration = readFileSync(join(projectRoot, 'src/data/site-config.ts'), 'utf8');
+    expect(contactPage).not.toContain('siteConfig.address');
+    expect(siteConfiguration).not.toMatch(/^\s*address:/m);
+  });
+
+  it('publishes the approved service area and response time', () => {
+    expect(siteConfig.serviceArea).toBe('Serving clients in Visakhapatnam only');
+    expect(siteConfig.responseTime).toBe('Usually replies within 2 business hours');
+    expect(siteConfig.hours).toBe('9:00 AM–9:00 PM');
+  });
 });

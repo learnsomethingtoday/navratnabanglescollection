@@ -116,7 +116,7 @@ Categories, collections, search terms, product routes, related products, and the
 ## Before launch
 
 - Replace the working brand name if required and verify trademark/domain availability.
-- Replace the dummy address, business hours, map, and social links in `src/data/site-config.ts`.
+- Replace the dummy social links in `src/data/site-config.ts`.
 - Replace `site` in `astro.config.mjs` with the production URL.
 - Replace all preview product copy and placeholder artwork with verified content.
 - Confirm the telephone and WhatsApp number.

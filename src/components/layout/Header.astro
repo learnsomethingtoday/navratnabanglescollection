@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from '@/data/site-config';
+import { siteConfig, whatsappUrl } from '@/data/site-config';
 import Icon from '@/components/shared/Icon.astro';
 const currentPath = Astro.url.pathname;
 const links = [
@@ -10,6 +10,9 @@ const links = [
 ];
 ---
 <header class="site-header" data-header>
+  <div class="catalogue-notice">
+    <p><strong>Catalogue only — no online ordering.</strong> To enquire, <a href={`tel:${siteConfig.phoneHref}`}>call us</a> or <a href={whatsappUrl('Hello Navira Jewels, I would like to enquire about your Navratna bangles.')} target="_blank" rel="noopener">message on WhatsApp</a>.</p>
+  </div>
   <div class="header-inner">
     <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
       <span class="brand-gem" aria-hidden="true"><Icon name="sparkle" size={18} /></span>
@@ -53,6 +56,10 @@ const links = [
 </script>
 <style>
   .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgb(181 138 58 / 18%); background: rgb(251 247 239 / 92%); backdrop-filter: blur(14px); }
+  .catalogue-notice { min-height: 34px; padding: 7px 16px; background: var(--maroon-dark); color: #f8eee8; text-align: center; }
+  .catalogue-notice p { margin: 0; font-size: .68rem; line-height: 1.45; letter-spacing: .02em; }
+  .catalogue-notice strong { color: var(--gold-soft); }
+  .catalogue-notice a { color: white; font-weight: 600; }
   .header-inner { display: grid; width: min(calc(100% - 32px), var(--content)); min-height: 78px; align-items: center; margin-inline: auto; grid-template-columns: 1fr auto 1fr; }
   .brand { display: inline-flex; width: fit-content; align-items: center; gap: 10px; color: var(--maroon); text-decoration: none; }
   .brand-gem { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); }
@@ -68,7 +75,7 @@ const links = [
   .close-icon { display: none; }
   .menu-toggle[aria-expanded='true'] .menu-icon { display: none; }
   .menu-toggle[aria-expanded='true'] .close-icon { display: block; }
-  .mobile-nav { position: fixed; inset: 78px 0 0; min-height: calc(100vh - 78px); padding: 44px 24px; background: var(--ivory); }
+  .mobile-nav { position: fixed; inset: 112px 0 0; min-height: calc(100vh - 112px); padding: 44px 24px; background: var(--ivory); }
   .mobile-nav a { display: block; padding: 12px 0; color: var(--maroon-dark); font-family: var(--serif); font-size: clamp(2.6rem, 12vw, 4.25rem); line-height: 1; text-decoration: none; }
   .mobile-nav a[aria-current='page'] { color: var(--gold); }
   .mobile-nav p { margin: 48px 0 0; color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
@@ -77,5 +84,10 @@ const links = [
     .header-inner { grid-template-columns: 1fr auto; }
     .desktop-nav, .header-enquiry { display: none; }
     .menu-toggle { display: grid; }
+  }
+  @media (max-width: 480px) {
+    .catalogue-notice { min-height: 45px; padding-block: 6px; }
+    .catalogue-notice p { max-width: 42ch; margin-inline: auto; }
+    .mobile-nav { inset-block-start: 123px; min-height: calc(100vh - 123px); }
   }
 </style>
