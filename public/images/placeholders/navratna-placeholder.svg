@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
+  <title id="title">Product photography placeholder</title>
+  <desc id="desc">A decorative abstract bangle with nine colored stones.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="70%">
+      <stop offset="0" stop-color="#fffdf9"/>
+      <stop offset="1" stop-color="#efe5d6"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5dfa4"/>
+      <stop offset=".45" stop-color="#b58a3a"/>
+      <stop offset="1" stop-color="#7a5317"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="22" stdDeviation="20" flood-color="#3d2115" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="900" height="900" fill="url(#bg)"/>
+  <g filter="url(#shadow)" transform="rotate(-18 450 430)">
+    <ellipse cx="450" cy="430" rx="285" ry="205" fill="none" stroke="url(#gold)" stroke-width="44"/>
+    <g stroke="#f5dda0" stroke-width="10">
+      <circle cx="177" cy="375" r="24" fill="#9f2034"/><circle cx="220" cy="295" r="24" fill="#0f5b4c"/>
+      <circle cx="292" cy="242" r="24" fill="#244c75"/><circle cx="382" cy="220" r="24" fill="#ede4d8"/>
+      <circle cx="478" cy="226" r="24" fill="#a93065"/><circle cx="566" cy="258" r="24" fill="#b52824"/>
+      <circle cx="634" cy="318" r="24" fill="#f1eadf"/><circle cx="682" cy="396" r="24" fill="#0f5b4c"/>
+      <circle cx="703" cy="480" r="24" fill="#244c75"/>
+    </g>
+  </g>
+  <text x="450" y="790" text-anchor="middle" fill="#5a1725" font-family="Georgia,serif" font-size="34">Product photography coming soon</text>
+  <text x="450" y="830" text-anchor="middle" fill="#6f625d" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">NAVIRA JEWELS · PLACEHOLDER</text>
+</svg>

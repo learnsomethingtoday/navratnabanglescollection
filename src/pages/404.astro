@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/shared/Icon.astro';
+---
+<BaseLayout title="Page not found">
+  <section class="not-found container">
+    <div class="orbit" aria-hidden="true"><span>4</span><i>✦</i><span>4</span></div>
+    <p class="eyebrow">Page not found</p>
+    <h1>This piece is<br /><em>not in the collection.</em></h1>
+    <p class="lede">The page may have moved, or the address may be incomplete. Return to the catalogue to keep exploring.</p>
+    <a class="button" href="/catalogue/">Browse the catalogue <Icon name="arrow" /></a>
+  </section>
+</BaseLayout>
+<style>
+  .not-found { display: grid; min-height: 70vh; place-items: center; align-content: center; padding: 80px 0; text-align: center; }
+  .orbit { display: flex; width: 170px; height: 170px; align-items: center; justify-content: center; gap: 8px; margin-bottom: 24px; border: 1px solid var(--gold); border-radius: 50%; color: var(--maroon); font-family: var(--serif); font-size: 4rem; box-shadow: 0 0 0 16px rgb(181 138 58 / 8%); }
+  .orbit i { color: var(--gold); font-size: 1rem; }
+  .not-found h1 { font-size: clamp(3rem, 7vw, 6rem); }
+  .not-found h1 em { color: var(--gold); font-weight: 500; }
+  .not-found .lede { margin: 26px auto 30px; }
+</style>

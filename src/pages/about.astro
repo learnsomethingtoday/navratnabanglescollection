@@ -1,0 +1,84 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/shared/Breadcrumbs.astro';
+import ContactBand from '@/components/shared/ContactBand.astro';
+import Icon from '@/components/shared/Icon.astro';
+---
+<BaseLayout title="Our Story" description="Learn about the Navratna tradition and the working vision behind Navira Jewels.">
+  <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Our Story' }]} />
+  <header class="about-hero container">
+    <div class="about-title"><span class="placeholder-label">Working brand story</span><p class="eyebrow">The Navira point of view</p><h1>Nine colours.<br /><em>One elegant whole.</em></h1></div>
+    <div class="about-intro"><p class="lede">Navratna jewellery brings nine distinct stones—or nine coloured elements—into a balanced composition. Our catalogue celebrates that visual tradition through bangles designed to feel expressive, graceful, and easy to explore.</p><p class="disclaimer">This page provides cultural and styling context only. Final product materials and construction details will be published per product.</p></div>
+  </header>
+
+  <section class="principle-strip" aria-label="Brand principles">
+    <div class="container"><span>Colour in balance</span><i>✦</i><span>Grace in motion</span><i>✦</i><span>Details with clarity</span></div>
+  </section>
+
+  <section class="section tradition" aria-labelledby="tradition-title">
+    <div class="container tradition-grid">
+      <div class="tradition-art" aria-hidden="true">
+        <div class="gem-wheel">{['#9f2034','#0f5b4c','#244c75','#e8e1d7','#a93065','#b52824','#d3b45f','#14634f','#243f75'].map((color, index) => <span style={`--stone:${color};--angle:${index * 40}deg`}><i></i></span>)}</div>
+        <strong>9</strong><p>elements in harmony</p>
+      </div>
+      <div class="tradition-copy"><p class="eyebrow">A colourful tradition</p><h2 id="tradition-title">What makes a Navratna composition distinctive?</h2><p>The word “Navratna” refers to nine gems. Across jewellery traditions, these nine elements are arranged together to create a recognisable spectrum of colour and a sense of completeness.</p><p>For this catalogue, we focus on what can be responsibly presented: the visual rhythm, craft, materials, sizing, and care of each confirmed design. Any future stone or material claims will be stated only after the product details are verified.</p></div>
+    </div>
+  </section>
+
+  <section class="section comparison" aria-labelledby="comparison-title">
+    <div class="container">
+      <div class="section-heading section-heading--split"><div><p class="eyebrow">Designed around real moments</p><h2 id="comparison-title">A different expression of fine style.</h2></div><p class="lede">Navratna-inspired bangles and traditional gold bangles can serve different tastes rather than compete as direct substitutes.</p></div>
+      <div class="comparison-grid">
+        <article><span>01</span><h3>More colour stories</h3><p>A multi-colour composition can coordinate naturally with varied outfits, festive palettes, and occasion wear.</p></article>
+        <article><span>02</span><h3>Potentially lighter</h3><p>Depending on its confirmed base material and construction, a bangle may offer a lighter feel than a solid-gold design. Exact weight will always be product-specific.</p></article>
+        <article><span>03</span><h3>Flexible styling</h3><p>Wear a piece alone for a restrained accent or layer it with other bangles for a fuller function-ready look.</p></article>
+        <article><span>04</span><h3>Material-led value</h3><p>Affordability depends entirely on the verified materials, stones, finish, and workmanship. Final information will be listed clearly for each piece.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section philosophy">
+    <div class="container philosophy-grid">
+      <div><p class="eyebrow">Simple by intention</p><h2>Enough detail to choose with confidence.</h2></div>
+      <div class="philosophy-copy"><p>Navira Jewels is currently a working brand concept. Its catalogue is designed to make browsing calm and useful: one clear place for imagery, materials, sizes, available colours, care notes, and direct enquiries.</p><p>There is no online checkout. When a piece interests you, a call or WhatsApp conversation lets the business share the most current information personally.</p><a class="button button--outline" href="/catalogue/">Browse the catalogue <Icon name="arrow" /></a></div>
+    </div>
+  </section>
+
+  <div class="container section--compact"><ContactBand /></div>
+</BaseLayout>
+<style>
+  .about-hero { display: grid; align-items: end; gap: clamp(42px, 8vw, 120px); padding: clamp(52px, 8vw, 100px) 0 clamp(72px, 9vw, 118px); grid-template-columns: 1.15fr .85fr; }
+  .about-title .placeholder-label { margin-bottom: 34px; }
+  .about-title h1 { font-size: clamp(3.4rem, 7.5vw, 7rem); }
+  .about-title h1 em { color: var(--gold); font-weight: 500; }
+  .about-intro .disclaimer { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); color: #887a74; font-size: .75rem; }
+  .principle-strip { padding: 18px 0; border-top: 1px solid var(--gold-soft); border-bottom: 1px solid var(--gold-soft); background: #f7efdf; }
+  .principle-strip .container { display: flex; justify-content: space-around; gap: 22px; color: var(--maroon); font-family: var(--serif); font-size: clamp(1rem, 2vw, 1.35rem); font-style: italic; }
+  .principle-strip i { color: var(--gold); font-size: .7rem; }
+  .tradition { background: var(--paper); }
+  .tradition-grid { display: grid; align-items: center; gap: clamp(54px, 9vw, 130px); grid-template-columns: .9fr 1.1fr; }
+  .tradition-art { position: relative; display: grid; min-height: 540px; place-items: center; overflow: hidden; border-radius: var(--radius-lg); background: var(--maroon-dark); color: white; }
+  .tradition-art > strong { font-family: var(--serif); font-size: 10rem; font-weight: 500; line-height: 1; }
+  .tradition-art > p { position: absolute; bottom: 48px; margin: 0; color: var(--gold-soft); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; }
+  .gem-wheel { position: absolute; width: 350px; height: 350px; animation: turn 40s linear infinite; }
+  .gem-wheel span { position: absolute; top: calc(50% - 16px); left: calc(50% - 16px); width: 32px; height: 32px; transform: rotate(var(--angle)) translateX(170px); }
+  .gem-wheel i { display: block; width: 100%; height: 100%; border: 4px solid #d3ad62; border-radius: 50%; background: var(--stone); box-shadow: 0 5px 14px rgb(0 0 0 / 30%); }
+  @keyframes turn { to { transform: rotate(360deg); } }
+  .tradition-copy h2 { margin-bottom: 28px; }
+  .tradition-copy p:not(.eyebrow) { color: var(--muted); font-size: 1.02rem; }
+  .comparison { background: var(--ivory); }
+  .comparison-grid { display: grid; border-top: 1px solid var(--line); border-left: 1px solid var(--line); grid-template-columns: repeat(4, 1fr); }
+  .comparison-grid article { min-height: 300px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgb(255 253 249 / 60%); }
+  .comparison-grid span { color: var(--gold); font-family: var(--serif); }
+  .comparison-grid h3 { margin: 70px 0 14px; font-size: 1.8rem; }
+  .comparison-grid p { color: var(--muted); font-size: .84rem; }
+  .philosophy { background: var(--emerald); color: #e8f0ed; }
+  .philosophy-grid { display: grid; gap: clamp(45px, 9vw, 130px); grid-template-columns: 1fr 1fr; }
+  .philosophy h2 { color: white; }
+  .philosophy .eyebrow { color: var(--gold-soft); }
+  .philosophy-copy p { color: #cbdcd7; }
+  .philosophy .button--outline { margin-top: 18px; border-color: var(--gold-soft); color: white; }
+  .philosophy .button--outline:hover { border-color: var(--maroon); }
+  @media (max-width: 900px) { .about-hero, .tradition-grid, .philosophy-grid { grid-template-columns: 1fr; } .comparison-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .principle-strip .container { align-items: center; flex-direction: column; gap: 4px; } .principle-strip i { display: none; } .tradition-art { min-height: 420px; } .gem-wheel { transform: scale(.75); } .comparison-grid { grid-template-columns: 1fr; } }
+</style>

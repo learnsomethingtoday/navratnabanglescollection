@@ -1,0 +1,81 @@
+---
+import { siteConfig } from '@/data/site-config';
+import Icon from '@/components/shared/Icon.astro';
+const currentPath = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/catalogue/', label: 'Catalogue' },
+  { href: '/about/', label: 'Our Story' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+<header class="site-header" data-header>
+  <div class="header-inner">
+    <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
+      <span class="brand-gem" aria-hidden="true"><Icon name="sparkle" size={18} /></span>
+      <span><strong>{siteConfig.shortName}</strong><small>Jewels</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>)}
+    </nav>
+    <a class="header-enquiry" href="/contact/">Make an enquiry <Icon name="arrow" size={17} /></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      <span class="menu-icon"><Icon name="menu" /></span><span class="close-icon"><Icon name="close" /></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
+    {links.map((link, index) => <a href={link.href} style={`--index:${index}`} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>)}
+    <p>Catalogue enquiries</p>
+    <a class="mobile-phone" href={`tel:${siteConfig.phoneHref}`}>{siteConfig.phoneDisplay}</a>
+  </nav>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.querySelector<HTMLElement>('#mobile-menu');
+  if (button && menu) {
+    const close = () => {
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Open menu');
+      menu.hidden = true;
+      document.body.classList.remove('menu-open');
+    };
+    button.addEventListener('click', () => {
+      const opening = button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(opening));
+      button.setAttribute('aria-label', opening ? 'Close menu' : 'Open menu');
+      menu.hidden = !opening;
+      document.body.classList.toggle('menu-open', opening);
+      if (opening) menu.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { close(); button.focus(); } });
+    matchMedia('(min-width: 861px)').addEventListener('change', (event) => { if (event.matches) close(); });
+  }
+</script>
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgb(181 138 58 / 18%); background: rgb(251 247 239 / 92%); backdrop-filter: blur(14px); }
+  .header-inner { display: grid; width: min(calc(100% - 32px), var(--content)); min-height: 78px; align-items: center; margin-inline: auto; grid-template-columns: 1fr auto 1fr; }
+  .brand { display: inline-flex; width: fit-content; align-items: center; gap: 10px; color: var(--maroon); text-decoration: none; }
+  .brand-gem { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid var(--gold); border-radius: 50%; color: var(--gold); }
+  .brand span:last-child { display: grid; line-height: .85; }
+  .brand strong { font-family: var(--serif); font-size: 1.65rem; font-weight: 600; letter-spacing: .02em; }
+  .brand small { margin-top: 6px; font-size: .55rem; letter-spacing: .32em; text-transform: uppercase; }
+  .desktop-nav { display: flex; gap: clamp(22px, 3vw, 44px); }
+  .desktop-nav a { position: relative; padding: 27px 0 24px; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-decoration: none; }
+  .desktop-nav a::after { position: absolute; right: 0; bottom: 19px; left: 0; height: 1px; content: ''; background: var(--gold); transform: scaleX(0); transition: transform .2s ease; }
+  .desktop-nav a:hover::after, .desktop-nav a[aria-current='page']::after { transform: scaleX(1); }
+  .header-enquiry { display: inline-flex; align-items: center; justify-self: end; gap: 8px; color: var(--maroon); font-size: .76rem; font-weight: 600; letter-spacing: .04em; text-decoration: none; }
+  .menu-toggle { display: none; width: 46px; height: 46px; place-items: center; justify-self: end; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--maroon); }
+  .close-icon { display: none; }
+  .menu-toggle[aria-expanded='true'] .menu-icon { display: none; }
+  .menu-toggle[aria-expanded='true'] .close-icon { display: block; }
+  .mobile-nav { position: fixed; inset: 78px 0 0; min-height: calc(100vh - 78px); padding: 44px 24px; background: var(--ivory); }
+  .mobile-nav a { display: block; padding: 12px 0; color: var(--maroon-dark); font-family: var(--serif); font-size: clamp(2.6rem, 12vw, 4.25rem); line-height: 1; text-decoration: none; }
+  .mobile-nav a[aria-current='page'] { color: var(--gold); }
+  .mobile-nav p { margin: 48px 0 0; color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+  .mobile-nav .mobile-phone { margin-top: 4px; font-family: var(--sans); font-size: 1rem; }
+  @media (max-width: 860px) {
+    .header-inner { grid-template-columns: 1fr auto; }
+    .desktop-nav, .header-enquiry { display: none; }
+    .menu-toggle { display: grid; }
+  }
+</style>
