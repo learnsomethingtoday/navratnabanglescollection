@@ -64,6 +64,13 @@ describe('catalogue foundations', () => {
     expect(availabilityValues).toEqual(Array(8).fill('available'));
   });
 
+  it('makes the upcoming catalogue expansion visible beside the available-design count', () => {
+    const cataloguePage = readFileSync(join(projectRoot, 'src/pages/catalogue/index.astro'), 'utf8');
+
+    expect(cataloguePage).toContain('class="catalogue-status"');
+    expect(cataloguePage).toContain('class="catalogue-expansion-note">More designs arriving soon</span>');
+  });
+
   it('groups every current product under Panchaloha Bangles', () => {
     const productDirectory = join(projectRoot, 'src/content/products');
     const categoryValues = readdirSync(productDirectory)
@@ -123,6 +130,19 @@ describe('catalogue foundations', () => {
     expect(home).toContain('@media (max-width: 640px)');
     expect(home).toContain('.hero-art { display: none; }');
     expect(home).not.toContain('.hero-marquee { display: none; }');
+  });
+
+  it('switches the Home story link for a catalogue enquiry note on mobile', () => {
+    const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
+
+    expect(home).toContain('class="text-link hero-story-link"');
+    expect(home).toContain('>Discover our story</a>');
+    expect(home).toContain('.hero-story-link { display: none; }');
+    expect(home).toContain('<p class="catalogue-note">Catalogue only · Order/Enquire by call or WhatsApp</p>');
+    expect(home).not.toContain('<p class="catalogue-note">Catalogue only · Enquire by call or WhatsApp</p>');
+    expect(home).toContain('.catalogue-note { display: none;');
+    expect(home).toContain('.catalogue-note { display: block; }');
+    expect(home).not.toContain('Order by call or WhatsApp');
   });
 
   it('removes the decorative vertical hero line from the mobile layout', () => {
@@ -517,6 +537,15 @@ describe('catalogue foundations', () => {
     expect(url).toContain('Hello%20%E2%80%94%20Navratna%20Stone');
   });
 
+  it('labels the primary WhatsApp action for ordering and enquiries', () => {
+    const contactBand = readFileSync(join(projectRoot, 'src/components/shared/ContactBand.astro'), 'utf8');
+
+    expect(contactBand).toContain('Order/Enquire on WhatsApp');
+    expect(contactBand).not.toContain('<Icon name="whatsapp" /> Enquire on WhatsApp');
+    expect(contactBand).toContain('Call or WhatsApp us directly for product information, sizing guidance, availability, and personal assistance.');
+    expect(contactBand).not.toContain('Online ordering is not available.');
+  });
+
   it('keeps commerce and account flows out of application source', () => {
     const sourceFiles = [
       'src/pages/index.astro',
@@ -658,7 +687,7 @@ describe('catalogue foundations', () => {
     expect(trustComponent).toContain('2,000<span>+</span>');
     expect(trustComponent).toContain('Bangles sold');
     expect(trustComponent).toContain('Over 2,000 bangles');
-    expect(trustComponent).toContain('more than 500 customers');
+    expect(trustComponent).toContain('more than 500 happy customers');
     expect(trustComponent).not.toContain('300<span>+</span>');
     expect(trustComponent).not.toContain('1,000<span>+</span>');
   });

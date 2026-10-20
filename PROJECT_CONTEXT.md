@@ -186,7 +186,7 @@ Routes, catalogue cards, filters, featured products, related products, and sitem
 
 The catalogue search icon is rendered by the shared Astro `Icon` child component. Its positioning selector must use `.input-wrap :global(svg)` so the parent page's scoped CSS reaches the child SVG and keeps the icon centred inside the search field. The search input, category selector, collection selector, and clear-filters control remain bottom-aligned in the responsive filter grid.
 
-The Catalogue introduction describes the collection as inspired by Navratna's rich tradition of colour and positions it for everyday elegance, festive moments, and special celebrations. It also tells visitors that more designs will be added soon without promising a specific launch date. Because every published product is currently available, the accompanying count badge reads dynamically as **“8 available designs”** rather than describing the products as previews.
+The Catalogue introduction describes the collection as inspired by Navratna's rich tradition of colour and positions it for everyday elegance, festive moments, and special celebrations. It also tells visitors that more designs will be added soon without promising a specific launch date. Because every published product is currently available, the count badge reads dynamically as **“8 available designs”** rather than describing the products as previews. A second, visually distinct badge beside it reads **“More designs arriving soon”** and wraps cleanly with the count on narrow screens so the catalogue expansion is easy to notice.
 
 ## Design system
 
@@ -203,6 +203,8 @@ On the Contact page, muted detail-value styling is scoped only to spans inside s
 
 The interface is mobile-first, supports 320px-wide screens, preserves visible keyboard focus, respects reduced-motion preferences, and uses minimum 44×44px interactive targets where appropriate. On screens wider than 640px, the Home hero presents the real Navratna Stone Bangles product photograph without illustrated orbit rings, floating stones, or the decorative `09`. A clearly visible 10-second alternate zoom moves between 1.02× and 1.10× scale; visitors who request reduced motion receive the same photograph without animation. The photograph is intentionally hidden on mobile while the hero copy and phrase strip remain visible.
 
+The Home hero keeps **Explore the catalogue** as its primary action. On screens wider than 640px, the secondary **Discover our story** link is visible and the catalogue enquiry note is hidden. On mobile screens up to 640px, **Discover our story** is hidden and the line **Catalogue only · Order/Enquire by call or WhatsApp** appears below the primary action. The global notice above the navigation still states that the website does not support online ordering.
+
 On screens up to 540px, the Home hero phrase strip switches from its desktop single-row presentation to a contained two-row grid, with **Panchaloha Bangles** centred above **Timeless Colour** and **Everyday Grace**. This keeps all three phrases legible without horizontal overflow. The trust-metrics grid gives the location column more width than the two numeric columns, and the Visakhapatnam metric uses a dedicated responsive type size so the place name remains on one line and within its cell on both desktop and mobile.
 
 The decorative vertical gold-gradient line used in the desktop Home hero is hidden at widths up to 640px so it does not appear as an unintended divider beside the mobile hero copy.
@@ -213,7 +215,7 @@ The Home-page story artwork centres the “Nine tones. One graceful whole.” ca
 
 There is no contact form or backend submission.
 
-A prominent notice appears above the primary navigation on every page: **“Catalogue only — no online ordering. To order/enquire, call us or message on WhatsApp.”** The Call and WhatsApp wording is linked to the configured phone number and the approved prefilled WhatsApp enquiry respectively. Reusable enquiry panels reinforce that online ordering is unavailable and direct visitors to those two contact methods. The primary WhatsApp action in the shared contact panel is labeled **“Order/Enquire on WhatsApp”** to make clear that customers can discuss an order personally without an online checkout flow.
+A prominent notice appears above the primary navigation on every page: **“Catalogue only — no online ordering. To order/enquire, call us or message on WhatsApp.”** The Call and WhatsApp wording is linked to the configured phone number and the approved prefilled WhatsApp enquiry respectively. The shared **Have a piece in mind?** panel omits the repeated online-ordering sentence and instead directly invites visitors to call or WhatsApp for product information, sizing guidance, availability, and personal assistance. Its primary WhatsApp action is labeled **“Order/Enquire on WhatsApp.”**
 
 Reusable enquiry panels, the Contact page, and the footer state that same-day delivery is available throughout Visakhapatnam and that orders across Andhra Pradesh and Telangana are dispatched within 24 business hours of being placed. They also retain the two-business-hour response expectation. These are service and dispatch statements, not a physical business address. Order coordination remains by call or WhatsApp; the website does not accept or create online orders.
 
@@ -242,7 +244,7 @@ The Home and About pages should prominently communicate the following positionin
 
 Use **gold-inspired** and **gold-tone** rather than saying the pieces “look like real gold,” which could imply that they are made from gold. Keep broader weight and risk statements qualified. Never describe any jewellery as risk-free or impossible to lose. Each piece should still be handled and stored with care.
 
-The approved trust metrics appear in the self-contained `TrustMetrics.astro` component at the end of the Home page, after the enquiry section: **500+ customers served** and **2,000+ bangles sold**, with same-day local delivery in Visakhapatnam. The panel uses a light champagne-gold gradient with deep-maroon text so it remains distinct from the dark-maroon footer. It must not use a green/emerald or footer-like dark background. Do not increase or alter these user-supplied figures without approval.
+The approved trust metrics appear in the self-contained `TrustMetrics.astro` component at the end of the Home page, after the enquiry section: **500+ customers served** and **2,000+ bangles sold**, with same-day local delivery in Visakhapatnam. The supporting statement reads: **“Over 2,000 bangles have become part of everyday moments and special celebrations for more than 500 happy customers.”** The panel uses a light champagne-gold gradient with deep-maroon text so it remains distinct from the dark-maroon footer. It must not use a green/emerald or footer-like dark background. Do not increase or alter these user-supplied figures without approval.
 
 ## Local development on macOS
 

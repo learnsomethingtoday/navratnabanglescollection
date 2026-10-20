@@ -13,7 +13,13 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
   <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Catalogue' }]} />
   <header class="page-header container">
     <div><p class="eyebrow">The collection</p><h1>Find your<br /><em>kind of colour.</em></h1></div>
-    <div><p class="lede">Explore a distinctive collection inspired by Navratna’s rich tradition of colour—thoughtfully selected for everyday elegance, festive moments, and special celebrations. More designs will be added to our growing catalogue soon.</p><span class="placeholder-label">{products.length} available designs</span></div>
+    <div>
+      <p class="lede">Explore a distinctive collection inspired by Navratna’s rich tradition of colour—thoughtfully selected for everyday elegance, festive moments, and special celebrations. More designs will be added to our growing catalogue soon.</p>
+      <div class="catalogue-status">
+        <span class="placeholder-label">{products.length} available designs</span>
+        <span class="catalogue-expansion-note">More designs arriving soon</span>
+      </div>
+    </div>
   </header>
 
   <section class="catalogue-section" aria-labelledby="catalogue-title">
@@ -66,6 +72,8 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
   .page-header h1 { font-size: clamp(3.5rem, 8vw, 7rem); }
   .page-header h1 em { color: var(--gold); font-weight: 500; }
   .page-header .lede { margin-bottom: 20px; }
+  .catalogue-status { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .catalogue-expansion-note { display: inline-flex; min-height: 32px; align-items: center; padding: 6px 12px; border: 1px solid var(--gold-soft); border-radius: 999px; background: #f7efdf; color: var(--maroon); font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
   .catalogue-section { padding: clamp(38px, 6vw, 72px) 0 clamp(70px, 10vw, 120px); background: var(--paper); }
   .catalogue-controls { display: grid; align-items: end; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--ivory); grid-template-columns: 1.5fr .85fr .85fr auto; }
   .catalogue-controls label { display: grid; gap: 7px; color: var(--muted); font-size: .68rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
