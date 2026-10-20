@@ -1,9 +1,10 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 interface Item { label: string; href?: string; }
 const { items } = Astro.props as { items: Item[] };
 ---
 <nav class="breadcrumbs container" aria-label="Breadcrumb">
   <ol>
-    {items.map((item, index) => <li>{item.href && index < items.length - 1 ? <a href={item.href}>{item.label}</a> : <span aria-current={index === items.length - 1 ? 'page' : undefined}>{item.label}</span>}</li>)}
+    {items.map((item, index) => <li>{item.href && index < items.length - 1 ? <a href={siteUrl(item.href)}>{item.label}</a> : <span aria-current={index === items.length - 1 ? 'page' : undefined}>{item.label}</span>}</li>)}
   </ol>
 </nav>

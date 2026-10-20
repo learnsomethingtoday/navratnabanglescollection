@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
-  <title id="title">Product photography placeholder</title>
+  <title id="title">Decorative Panchaloha bangle illustration</title>
   <desc id="desc">A decorative abstract bangle with nine colored stones.</desc>
   <defs>
     <radialGradient id="bg" cx="50%" cy="42%" r="70%">
@@ -26,6 +26,4 @@
       <circle cx="703" cy="480" r="24" fill="#244c75"/>
     </g>
   </g>
-  <text x="450" y="790" text-anchor="middle" fill="#5a1725" font-family="Georgia,serif" font-size="34">Product photography coming soon</text>
-  <text x="450" y="830" text-anchor="middle" fill="#6f625d" font-family="Arial,sans-serif" font-size="16" letter-spacing="3">NAVIRA JEWELS · PLACEHOLDER</text>
 </svg>

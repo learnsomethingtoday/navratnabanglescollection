@@ -1,14 +1,15 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/shared/Breadcrumbs.astro';
 import ContactBand from '@/components/shared/ContactBand.astro';
 import Icon from '@/components/shared/Icon.astro';
 ---
-<BaseLayout title="Our Story" description="Learn about the Navratna tradition and the working vision behind Navira Jewels.">
+<BaseLayout title="Our Story" description="Learn about the Navratna tradition and the vision behind Navira Jewels.">
   <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Our Story' }]} />
   <header class="about-hero container">
-    <div class="about-title"><span class="placeholder-label">Working brand story</span><p class="eyebrow">The Navira point of view</p><h1>Nine colours.<br /><em>One elegant whole.</em></h1></div>
-    <div class="about-intro"><p class="lede">Navratna jewellery brings nine distinct stones—or nine coloured elements—into a balanced composition. Our catalogue celebrates that visual tradition through bangles designed to feel expressive, graceful, and easy to explore.</p><p class="disclaimer">This page provides cultural and styling context only. Final product materials and construction details will be published per product.</p></div>
+    <div class="about-title"><p class="eyebrow">The Navira point of view</p><h1>Nine colours.<br /><em>One elegant whole.</em></h1></div>
+    <div class="about-intro"><p class="lede">Navratna jewellery brings nine distinct stones—or nine coloured elements—into a balanced composition. Our catalogue celebrates that visual tradition through bangles designed to feel expressive, graceful, and easy to explore.</p><p class="disclaimer">This page provides cultural and styling context only. See each product page for its listed materials, sizes, and care instructions.</p></div>
   </header>
 
   <section class="principle-strip" aria-label="Brand principles">
@@ -29,7 +30,7 @@ import Icon from '@/components/shared/Icon.astro';
     <div class="container">
       <div class="section-heading section-heading--split"><div><p class="eyebrow">Designed around real moments</p><h2 id="comparison-title">The elegance you love, with less everyday worry.</h2></div><p class="lede">For designs made from confirmed lower-cost materials, Navratna bangles can offer a colourful, captivating alternative to high-value solid-gold bangles.</p></div>
       <div class="comparison-grid">
-        <article><span>01</span><h3>Rich visual appeal</h3><p>Navratna colours paired with a polished, gold-toned finish can create an elegant and mesmerising look for everyday outfits and occasion wear.</p></article>
+        <article><span>01</span><h3>Gold-inspired elegance</h3><p>Designed with a rich gold-tone finish that brings the elegant look of traditional gold bangles at a more accessible price.</p></article>
         <article><span>02</span><h3>More accessible</h3><p>Where verified materials cost less than solid gold, the finished bangle can provide a more approachable way to enjoy a refined jewellery look.</p></article>
         <article><span>03</span><h3>Made for regular wear</h3><p>A potentially lighter, lower-value piece can feel easier to choose for daily routines and frequent functions. Exact weight and construction remain product-specific.</p></article>
         <article><span>04</span><h3>Lower financial exposure</h3><p>Compared with high-value gold jewellery, a lower-cost alternative may bring less financial concern if misplaced. It is not risk-free and should still be handled and stored carefully.</p></article>
@@ -40,7 +41,7 @@ import Icon from '@/components/shared/Icon.astro';
   <section class="section philosophy">
     <div class="container philosophy-grid">
       <div><p class="eyebrow">Simple by intention</p><h2>Enough detail to choose with confidence.</h2></div>
-      <div class="philosophy-copy"><p>Navira Jewels is currently a working brand concept. Its catalogue is designed to make browsing calm and useful: one clear place for imagery, materials, sizes, available colours, care notes, and direct enquiries.</p><p>There is no online checkout. When a piece interests you, a call or WhatsApp conversation lets the business share the most current information personally.</p><a class="button button--outline" href="/catalogue/">Browse the catalogue <Icon name="arrow" /></a></div>
+      <div class="philosophy-copy"><p>Navira Jewels is designed to make browsing calm and useful: one clear place for imagery, materials, sizes, available colours, care notes, and direct enquiries.</p><p>There is no online checkout. When a piece interests you, a call or WhatsApp conversation lets the business share the most current information personally and can help you to order as per your need.</p><a class="button button--outline" href={siteUrl('/catalogue/')}>Browse the catalogue <Icon name="arrow" /></a></div>
     </div>
   </section>
 
@@ -48,7 +49,6 @@ import Icon from '@/components/shared/Icon.astro';
 </BaseLayout>
 <style>
   .about-hero { display: grid; align-items: end; gap: clamp(42px, 8vw, 120px); padding: clamp(52px, 8vw, 100px) 0 clamp(72px, 9vw, 118px); grid-template-columns: 1.15fr .85fr; }
-  .about-title .placeholder-label { margin-bottom: 34px; }
   .about-title h1 { font-size: clamp(3.4rem, 7.5vw, 7rem); }
   .about-title h1 em { color: var(--gold); font-weight: 500; }
   .about-intro .disclaimer { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); color: #887a74; font-size: .75rem; }

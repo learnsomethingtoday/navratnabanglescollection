@@ -1,0 +1,64 @@
+---
+interface Props {
+  price?: number;
+  mrp?: number;
+  currency?: string;
+  showPrice?: boolean;
+  piecesPerSet?: number;
+  compact?: boolean;
+}
+
+const { price, mrp, currency, showPrice = false, piecesPerSet, compact = false } = Astro.props;
+const formattedPrice = showPrice && price != null && currency
+  ? new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(price)
+  : null;
+const formattedMrp = showPrice && mrp != null && currency
+  ? new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency,
+      maximumFractionDigits: 0,
+    }).format(mrp)
+  : null;
+---
+
+{formattedPrice && (
+  <div class:list={['product-price', { 'product-price--compact': compact }]} aria-label={`Launch offer price ${formattedPrice}${piecesPerSet ? ` for ${piecesPerSet} bangles` : ''}${formattedMrp ? `; MRP ${formattedMrp}` : ''}`}>
+    <span class="offer-badge">Launch Offer</span>
+    <p class="price-row">
+      {formattedMrp && <span class="mrp-line"><del>{formattedMrp}</del></span>}
+      <span class="offer-price">
+        {formattedPrice}
+        {piecesPerSet === 2
+          ? <span class="price-unit">/ pair</span>
+          : piecesPerSet && <span class="price-unit">/ set</span>}
+      </span>
+    </p>
+    {piecesPerSet && <small>Price for a pair of {piecesPerSet} bangles</small>}
+  </div>
+)}
+
+<style>
+  .product-price { margin: 0 0 20px; }
+  .price-row { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; margin: 0; font-family: var(--sans); line-height: 1.15; }
+  .offer-price { display: inline-flex; align-items: baseline; gap: 7px; color: var(--maroon); font-size: clamp(1.75rem, 3vw, 2.15rem); font-weight: 650; white-space: nowrap; }
+  .price-unit { color: var(--muted); font-size: .48em; font-weight: 600; letter-spacing: .02em; text-transform: none; }
+  .product-price .mrp-line { color: var(--muted); font-family: var(--sans); font-size: 1.05rem; font-weight: 500; letter-spacing: .02em; white-space: nowrap; }
+  .product-price .mrp-line del { text-decoration-thickness: 1px; text-decoration-color: var(--maroon); }
+  .offer-badge { display: inline-flex; align-items: center; min-height: 32px; margin-bottom: 8px; padding: 5px 12px; border: 1px solid color-mix(in srgb, var(--gold) 52%, transparent); border-radius: 999px; color: var(--maroon); background: color-mix(in srgb, var(--ivory) 88%, white); font-size: .68rem; font-weight: 700; letter-spacing: .06em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+  .product-price small { display: block; margin-top: 7px; color: var(--muted); font-size: .8rem; }
+  .product-price--compact { margin: 2px 0 0; }
+  .product-price--compact .offer-badge { min-height: 27px; margin-bottom: 7px; padding: 4px 9px; font-size: .57rem; }
+  .product-price--compact .price-row { gap: 10px; }
+  .product-price--compact .offer-price { gap: 5px; font-size: 1.25rem; }
+  .product-price--compact .mrp-line { font-size: .82rem; }
+  .product-price--compact small { margin-top: 4px; font-size: .66rem; }
+
+  @media (max-width: 380px) {
+    .price-row { gap: 9px; }
+    .offer-badge { min-height: 29px; padding-inline: 9px; font-size: .61rem; }
+  }
+</style>

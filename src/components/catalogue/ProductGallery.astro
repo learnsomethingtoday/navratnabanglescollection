@@ -1,4 +1,5 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 import Icon from '@/components/shared/Icon.astro';
 interface GalleryImage { src: string; alt: string; focalPosition?: string; }
 const { images, productName } = Astro.props as { images: GalleryImage[]; productName: string };
@@ -6,17 +7,24 @@ const { images, productName } = Astro.props as { images: GalleryImage[]; product
 <div class="gallery" data-gallery>
   <div class="gallery-main">
     {images.map((image, index) => (
-      <img src={image.src} alt={image.alt} width="900" height="900" data-gallery-image={index} hidden={index !== 0} style={`object-position:${image.focalPosition ?? 'center'}`} />
+      <img src={siteUrl(image.src)} alt={image.alt} width="900" height="900" data-gallery-image={index} hidden={index !== 0} style={`object-position:${image.focalPosition ?? 'center'}`} />
     ))}
-    <span class="placeholder-label">Preview photography</span>
+    {images.length > 1 && <>
+      <button class="gallery-arrow gallery-arrow--previous" type="button" aria-label="Show previous image" data-previous-image><Icon name="arrow" /></button>
+      <button class="gallery-arrow gallery-arrow--next" type="button" aria-label="Show next image" data-next-image><Icon name="arrow" /></button>
+    </>}
     <button class="zoom-button" type="button" aria-label={`Enlarge image of ${productName}`} data-open-zoom>View larger</button>
   </div>
   {images.length > 1 && <div class="thumbnails" aria-label="Choose product image">
-    {images.map((image, index) => <button type="button" aria-label={`Show image ${index + 1} of ${images.length}`} aria-pressed={index === 0 ? 'true' : 'false'} data-thumb={index}><img src={image.src} alt="" width="90" height="90" /></button>)}
+    {images.map((image, index) => <button type="button" aria-label={`Show image ${index + 1} of ${images.length}`} aria-pressed={index === 0 ? 'true' : 'false'} data-thumb={index}><img src={siteUrl(image.src)} alt="" width="90" height="90" /></button>)}
   </div>}
   <dialog class="image-dialog" data-image-dialog aria-label={`Enlarged image of ${productName}`}>
     <button class="dialog-close" type="button" aria-label="Close enlarged image" data-close-zoom><Icon name="close" /></button>
-    <img src={images[0].src} alt={images[0].alt} width="1200" height="1200" data-dialog-image />
+    <img src={siteUrl(images[0].src)} alt={images[0].alt} width="1200" height="1200" data-dialog-image />
+    {images.length > 1 && <>
+      <button class="dialog-arrow dialog-arrow--previous" type="button" aria-label="Show previous enlarged image" data-previous-image><Icon name="arrow" /></button>
+      <button class="dialog-arrow dialog-arrow--next" type="button" aria-label="Show next enlarged image" data-next-image><Icon name="arrow" /></button>
+    </>}
   </dialog>
 </div>
 <script>
@@ -24,23 +32,45 @@ const { images, productName } = Astro.props as { images: GalleryImage[]; product
     const images = [...gallery.querySelectorAll<HTMLImageElement>('[data-gallery-image]')];
     const dialog = gallery.querySelector<HTMLDialogElement>('[data-image-dialog]');
     const dialogImage = gallery.querySelector<HTMLImageElement>('[data-dialog-image]');
+    let currentIndex = 0;
     const selectImage = (index: number) => {
-      images.forEach((image, imageIndex) => { image.hidden = imageIndex !== index; });
-      gallery.querySelectorAll<HTMLButtonElement>('[data-thumb]').forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === index)));
-      const selected = images[index];
+      currentIndex = (index + images.length) % images.length;
+      images.forEach((image, imageIndex) => { image.hidden = imageIndex !== currentIndex; });
+      gallery.querySelectorAll<HTMLButtonElement>('[data-thumb]').forEach((button, buttonIndex) => button.setAttribute('aria-pressed', String(buttonIndex === currentIndex)));
+      const selected = images[currentIndex];
       if (dialogImage && selected) { dialogImage.src = selected.src; dialogImage.alt = selected.alt; }
     };
     gallery.querySelectorAll<HTMLButtonElement>('[data-thumb]').forEach((button) => button.addEventListener('click', () => selectImage(Number(button.dataset.thumb))));
+    gallery.querySelectorAll<HTMLButtonElement>('[data-previous-image]').forEach((button) => button.addEventListener('click', () => selectImage(currentIndex - 1)));
+    gallery.querySelectorAll<HTMLButtonElement>('[data-next-image]').forEach((button) => button.addEventListener('click', () => selectImage(currentIndex + 1)));
     gallery.querySelector<HTMLButtonElement>('[data-open-zoom]')?.addEventListener('click', () => dialog?.showModal());
     gallery.querySelector<HTMLButtonElement>('[data-close-zoom]')?.addEventListener('click', () => dialog?.close());
     dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    document.addEventListener('keydown', (event) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.matches('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        selectImage(currentIndex - 1);
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        selectImage(currentIndex + 1);
+      }
+    });
   });
 </script>
 <style>
   .gallery { min-width: 0; }
   .gallery-main { position: relative; display: grid; aspect-ratio: 1 / 1; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: #f1e9dd; }
   .gallery-main > img { width: 100%; height: 100%; object-fit: contain; }
-  .gallery-main .placeholder-label { position: absolute; top: 18px; left: 18px; }
+  .gallery-main > img[hidden] { display: none; }
+  .gallery-arrow, .dialog-arrow { position: absolute; top: 50%; z-index: 1; display: grid; width: 46px; height: 46px; place-items: center; border: 1px solid rgb(90 23 37 / 18%); border-radius: 50%; background: rgb(255 253 249 / 92%); color: var(--maroon); box-shadow: var(--shadow-sm); cursor: pointer; transform: translateY(-50%); }
+  .gallery-arrow--previous, .dialog-arrow--previous { left: 14px; }
+  .gallery-arrow--next, .dialog-arrow--next { right: 14px; }
+  .gallery-arrow--previous :global(svg), .dialog-arrow--previous :global(svg) { transform: rotate(180deg); }
+  .gallery-arrow:hover, .dialog-arrow:hover { background: var(--white); }
+  .gallery-arrow:focus-visible, .dialog-arrow:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
   .zoom-button { position: absolute; right: 18px; bottom: 18px; min-height: 44px; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; background: rgb(255 253 249 / 92%); color: var(--maroon); font-size: .75rem; font-weight: 600; cursor: pointer; }
   .thumbnails { display: flex; gap: 10px; margin-top: 14px; overflow-x: auto; }
   .thumbnails button { width: 82px; height: 82px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); cursor: pointer; }
@@ -50,4 +80,9 @@ const { images, productName } = Astro.props as { images: GalleryImage[]; product
   .image-dialog::backdrop { background: rgb(24 14 13 / 72%); backdrop-filter: blur(5px); }
   .image-dialog img { width: 100%; max-height: calc(90vh - 72px); object-fit: contain; }
   .dialog-close { position: absolute; top: 10px; right: 10px; display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--maroon); cursor: pointer; }
+  @media (max-width: 560px) {
+    .gallery-arrow, .dialog-arrow { width: 44px; height: 44px; }
+    .gallery-arrow--previous, .dialog-arrow--previous { left: 8px; }
+    .gallery-arrow--next, .dialog-arrow--next { right: 8px; }
+  }
 </style>

@@ -9,11 +9,11 @@ const products = await getProducts();
 const categories = [...new Set(products.flatMap(({ data }) => data.categories))].sort();
 const collections = [...new Set(products.map(({ data }) => data.collection).filter((value): value is string => Boolean(value)))].sort();
 ---
-<BaseLayout title="Catalogue" description="Browse the Navira Jewels preview catalogue of Navratna bangles.">
+<BaseLayout title="Catalogue" description="Browse the Navira Jewels catalogue of Navratna-inspired bangles.">
   <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Catalogue' }]} />
   <header class="page-header container">
     <div><p class="eyebrow">The collection</p><h1>Find your<br /><em>kind of colour.</em></h1></div>
-    <div><p class="lede">Explore our growing Navratna bangle catalogue. Every current entry is preview content awaiting final photography and verified specifications.</p><span class="placeholder-label">9 preview products</span></div>
+    <div><p class="lede">Explore a distinctive collection inspired by Navratna’s rich tradition of colour—thoughtfully selected for everyday elegance, festive moments, and special celebrations. More designs will be added to our growing catalogue soon.</p><span class="placeholder-label">{products.length} available designs</span></div>
   </header>
 
   <section class="catalogue-section" aria-labelledby="catalogue-title">
@@ -25,9 +25,9 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
         <label><span>Collection</span><select data-collection-filter><option value="">All collections</option>{collections.map((collection) => <option value={collection}>{collection}</option>)}</select></label>
         <button class="reset-button" type="button" data-reset-filters>Clear filters</button>
       </div>
-      <div class="results-bar"><p aria-live="polite" aria-atomic="true" data-result-count>Showing all {products.length} products</p><p>Catalogue preview · No online ordering</p></div>
+      <div class="results-bar"><p aria-live="polite" aria-atomic="true" data-result-count>Showing all {products.length} products</p><p>Catalogue only · Enquire by call or WhatsApp</p></div>
       <ProductGrid products={products} id="product-grid" />
-      <div class="empty-state" data-empty-state hidden><h3>No pieces found</h3><p>Try a different search term or clear the filters to see the full preview catalogue.</p><button class="button button--outline" type="button" data-empty-reset>Clear all filters</button></div>
+      <div class="empty-state" data-empty-state hidden><h3>No pieces found</h3><p>Try a different search term or clear the filters to see the full catalogue.</p><button class="button button--outline" type="button" data-empty-reset>Clear all filters</button></div>
     </div>
   </section>
   <div class="container section--compact"><ContactBand /></div>
@@ -70,7 +70,7 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
   .catalogue-controls { display: grid; align-items: end; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--ivory); grid-template-columns: 1.5fr .85fr .85fr auto; }
   .catalogue-controls label { display: grid; gap: 7px; color: var(--muted); font-size: .68rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
   .input-wrap { position: relative; display: block; }
-  .input-wrap svg { position: absolute; top: 50%; left: 14px; color: var(--muted); transform: translateY(-50%); }
+  .input-wrap :global(svg) { position: absolute; top: 50%; left: 14px; color: var(--muted); transform: translateY(-50%); }
   input, select { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--white); color: var(--ink); font-size: .85rem; }
   input { padding-left: 43px; }
   .reset-button { min-height: 48px; padding: 10px 16px; border: 0; background: transparent; color: var(--maroon); font-size: .75rem; font-weight: 600; cursor: pointer; }

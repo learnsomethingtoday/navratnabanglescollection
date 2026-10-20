@@ -1,23 +1,42 @@
 ---
-name: "Navratna Aabha — Preview 07"
-slug: "navratna-aabha-preview-07"
-sku: "DUMMY-NV-007"
-summary: "Placeholder description for a richly detailed bangle concept. Final product details will be added later."
-categories: ["Navratna Bangles"]
-collection: "Signature Preview"
+name: "Black Stone Bangles"
+slug: "black-stone-bangles"
+sku: "NVR-BS-007"
+summary: "A richly detailed gold-tone bangle design with black accents for a bold, elegant finish."
+categories: ["Panchaloha Bangles"]
+collection: "Signature"
 tags: ["ornate", "statement"]
 images:
-  - src: "/images/placeholders/navratna-placeholder.svg"
-    alt: "Placeholder artwork for Navratna Aabha bangle photography"
-material: ["Material to be confirmed"]
-sizes: ["Sizes to be confirmed"]
+  - src: "/images/products/black-stone-preview-07/02-upright-pair.webp"
+    alt: "Pair of gold-tone bangles with round black accents displayed upright on pale fabric"
+    focalPosition: "center 57%"
+    cardFit: "cover"
+  - src: "/images/products/black-stone-preview-07/01-brown-box.webp"
+    alt: "Pair of gold-tone bangles with round black accents arranged on a carved brown box"
+    focalPosition: "center 48%"
+    cardFit: "cover"
+  - src: "/images/products/black-stone-preview-07/03-worn-view.webp"
+    alt: "Pair of gold-tone bangles with round black accents worn on a wrist"
+    focalPosition: "center 55%"
+    cardFit: "cover"
+  - src: "/images/products/black-stone-preview-07/04-complete-set.webp"
+    alt: "Four gold-tone bangles with round black accents arranged on a pale marble-like surface"
+    focalPosition: "center 55%"
+    cardFit: "cover"
+material: ["Brass & Copper"]
+sizes: ["2.4", "2.6", "2.8", "2.10"]
 colors:
-  - name: "Colors to be confirmed"
-availability: "coming-soon"
-features: ["Detailing to be confirmed", "Finish to be confirmed", "Fit information to be confirmed"]
-careInstructions: ["Final care instructions will be provided with the confirmed material details."]
+  - name: "Black"
+availability: "available"
+features: ["Gold-Tone Finish", "Elegantly Lightweight", "Premium Quality and Superior Finishing", "Suitable for Everyday & Occasion Wear", "Luxurious and Attractive Design"]
+careInstructions: ["Keep Dry", "Handle Gently", "Avoid Abrasive Cleaners", "Store Separately", "Wipe After Use"]
 featured: false
+price: 699
+mrp: 849
+currency: "INR"
+showPrice: true
+piecesPerSet: 2
 sortOrder: 7
 ---
 
-This is placeholder catalogue copy. Detailed craftsmanship information will be added later.
+For current sizes, product details, and stock availability, please call or WhatsApp us. Our team will help you choose the right design.

@@ -6,12 +6,15 @@ export const siteConfig = {
   phoneHref: '+917207742722',
   whatsappNumber: '917207742722',
   responseTime: 'Usually replies within 2 business hours',
-  serviceArea: 'Serving clients in Visakhapatnam only',
+  localDelivery: 'Same-day delivery throughout Visakhapatnam',
+  regionalDispatch: 'Orders across Andhra Pradesh and Telangana are dispatched within 24 business hours of being placed',
   hours: '9:00 AM–9:00 PM',
-  socialLinks: [
-    { label: 'Instagram', href: '#', placeholder: true },
-    { label: 'Facebook', href: '#', placeholder: true },
-    { label: 'Pinterest', href: '#', placeholder: true },
+  productHighlights: [
+    'Zinc-free',
+    'Skin-friendly',
+    'Fade-resistant finish',
+    'Lightweight for regular wear',
+    'Quality checked',
   ],
 } as const;
 

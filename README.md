@@ -115,10 +115,17 @@ Categories, collections, search terms, product routes, related products, and the
 
 ## Before launch
 
-- Replace the working brand name if required and verify trademark/domain availability.
-- Replace the dummy social links in `src/data/site-config.ts`.
-- Replace `site` in `astro.config.mjs` with the production URL.
+- Replace the brand name if required and verify trademark/domain availability.
+- Verify the production URL and base path in `astro.config.mjs`.
 - Replace all preview product copy and placeholder artwork with verified content.
 - Confirm the telephone and WhatsApp number.
 
 No hosting provider or CMS is assumed. The generated `dist/` folder can be deployed to any static web host.
+
+## GitHub Pages
+
+Production URL: https://learnsomethingtoday.github.io/navratnabanglescollection/
+
+The workflow in `.github/workflows/deploy.yml` tests, builds, and deploys changes pushed to `main`. In repository Settings → Pages, select GitHub Actions as the publishing source. GitHub Pages requires a public repository on the current account plan.
+
+Internal links and public images use `siteUrl()` to include the repository base path. Keep this helper when adding new routes or images.

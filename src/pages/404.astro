@@ -1,4 +1,5 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/shared/Icon.astro';
 ---
@@ -8,7 +9,7 @@ import Icon from '@/components/shared/Icon.astro';
     <p class="eyebrow">Page not found</p>
     <h1>This piece is<br /><em>not in the collection.</em></h1>
     <p class="lede">The page may have moved, or the address may be incomplete. Return to the catalogue to keep exploring.</p>
-    <a class="button" href="/catalogue/">Browse the catalogue <Icon name="arrow" /></a>
+    <a class="button" href={siteUrl('/catalogue/')}>Browse the catalogue <Icon name="arrow" /></a>
   </section>
 </BaseLayout>
 <style>

@@ -1,0 +1,92 @@
+<style>
+  .navira-comparison { color: #241d1b; }
+  .navira-comparison .intro { max-width: 760px; margin-bottom: 28px; }
+  .navira-comparison .intro h2 { color: #5a1725; font-family: Georgia, serif; font-size: clamp(2rem, 5vw, 3.25rem); line-height: .98; }
+  .navira-comparison .intro p { max-width: 62ch; color: #746863; }
+  .navira-comparison .directions { display: grid; gap: 22px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .navira-comparison .direction { overflow: hidden; border: 1px solid #dfd1bb; border-radius: 24px; background: #fffdf8; box-shadow: 0 18px 44px rgb(53 31 23 / 8%); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .navira-comparison .direction:hover { transform: translateY(-3px); border-color: #b58a3a; box-shadow: 0 22px 52px rgb(53 31 23 / 13%); }
+  .navira-comparison .direction.selected { border-color: #5a1725; box-shadow: 0 0 0 3px rgb(90 23 37 / 10%), 0 22px 52px rgb(53 31 23 / 13%); }
+  .navira-comparison .preview { min-height: 360px; padding: 30px 24px; }
+  .navira-comparison .product-kicker { margin: 0 0 8px; color: #8b6b32; font-size: .66rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+  .navira-comparison .product-name { margin: 0; color: #4b111e; font-family: Georgia, serif; font-size: 2rem; line-height: 1.05; }
+  .navira-comparison .meta { display: flex; justify-content: space-between; gap: 12px; margin: 18px 0 24px; padding: 12px 0; border-top: 1px solid #e7dccb; border-bottom: 1px solid #e7dccb; color: #766a65; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .navira-comparison .choice-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; color: #5a1725; font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .navira-comparison .choice-label span { color: #9a8b84; font-size: .62rem; font-weight: 600; letter-spacing: .04em; text-transform: none; }
+  .navira-comparison .sizes { display: grid; gap: 10px; grid-template-columns: repeat(4, 1fr); }
+  .navira-comparison .sizes button { min-height: 48px; border-radius: 999px; font: inherit; font-weight: 700; }
+  .navira-comparison .caption { padding: 19px 22px 22px; border-top: 1px solid #eee3d4; background: #fff; }
+  .navira-comparison .caption b { display: block; margin-bottom: 4px; color: #5a1725; font-family: Georgia, serif; font-size: 1.3rem; }
+  .navira-comparison .caption p { margin: 0; color: #766a65; font-size: .82rem; line-height: 1.45; }
+
+  .navira-comparison .tray { background: radial-gradient(circle at 75% 10%, #f3e6c9, transparent 35%), #fbf7ef; }
+  .navira-comparison .tray-box { padding: 22px; border: 1px solid #dfc893; border-radius: 20px; background: rgb(255 255 255 / 76%); box-shadow: inset 0 0 0 5px rgb(181 138 58 / 6%); }
+  .navira-comparison .tray .sizes button { border: 1px solid #d8c59d; background: #fffdf8; color: #5a1725; }
+  .navira-comparison .tray .sizes button.active { border-color: #5a1725; background: #5a1725; color: white; box-shadow: 0 8px 20px rgb(90 23 37 / 22%); }
+
+  .navira-comparison .ribbon { background: #fffaf1; }
+  .navira-comparison .ribbon-panel { margin: 0 -24px; padding: 24px; background: linear-gradient(135deg, #4d0e1b, #6b1f30); color: white; box-shadow: 0 16px 28px rgb(62 12 25 / 18%); }
+  .navira-comparison .ribbon .choice-label { color: #f3ddb0; }
+  .navira-comparison .ribbon .choice-label span { color: #d7bfc4; }
+  .navira-comparison .ribbon .sizes button { border: 1px solid rgb(243 221 176 / 45%); background: transparent; color: white; }
+  .navira-comparison .ribbon .sizes button.active { border-color: #f3ddb0; background: #f3ddb0; color: #4d0e1b; box-shadow: 0 8px 20px rgb(0 0 0 / 20%); }
+
+  .navira-comparison .editorial { background: #fff; }
+  .navira-comparison .editorial .size-rule { width: 54px; height: 2px; margin: 0 0 18px; background: #b58a3a; }
+  .navira-comparison .editorial .sizes { gap: 0; border-top: 1px solid #dcd3ca; border-bottom: 1px solid #dcd3ca; }
+  .navira-comparison .editorial .sizes button { position: relative; border: 0; border-right: 1px solid #dcd3ca; border-radius: 0; background: white; color: #504642; }
+  .navira-comparison .editorial .sizes button:last-child { border-right: 0; }
+  .navira-comparison .editorial .sizes button.active { color: #5a1725; }
+  .navira-comparison .editorial .sizes button.active::after { position: absolute; right: 18%; bottom: 7px; left: 18%; height: 3px; content: ''; background: #b58a3a; }
+
+  @media (max-width: 900px) { .navira-comparison .directions { grid-template-columns: 1fr; } .navira-comparison .preview { min-height: 0; } }
+  @media (max-width: 420px) { .navira-comparison .sizes { grid-template-columns: repeat(2, 1fr); } }
+</style>
+
+<div class="navira-comparison">
+  <div class="intro">
+    <p class="label">Product-page size selector</p>
+    <h2>Which treatment feels most attention-grabbing?</h2>
+    <p>Each direction keeps sizes above the enquiry action. Click the overall design you prefer.</p>
+  </div>
+
+  <div class="directions">
+    <div class="direction tray cursor-interaction" data-choice="a" onclick="toggleSelect(this)">
+      <div class="preview">
+        <p class="product-kicker">Signature · Available</p>
+        <h3 class="product-name">Panchaloha Navratna</h3>
+        <div class="meta"><span>Available</span><span>SKU NV-PN-001</span></div>
+        <div class="tray-box">
+          <div class="choice-label">Choose your size <span>Tap to select</span></div>
+          <div class="sizes"><button type="button">2.4</button><button type="button">2.6</button><button type="button" class="active">2.8</button><button type="button">2.10</button></div>
+        </div>
+      </div>
+      <div class="caption"><b>A · Jewellery tray</b><p>Warm ivory, fine gold framing, and a strong maroon selected state. Premium without overpowering the product.</p></div>
+    </div>
+
+    <div class="direction ribbon cursor-interaction" data-choice="b" onclick="toggleSelect(this)">
+      <div class="preview">
+        <p class="product-kicker">Signature · Available</p>
+        <h3 class="product-name">Panchaloha Navratna</h3>
+        <div class="meta"><span>Available</span><span>SKU NV-PN-001</span></div>
+        <div class="ribbon-panel">
+          <div class="choice-label">Available sizes <span>Select one</span></div>
+          <div class="sizes"><button type="button">2.4</button><button type="button">2.6</button><button type="button" class="active">2.8</button><button type="button">2.10</button></div>
+        </div>
+      </div>
+      <div class="caption"><b>B · Maroon ribbon</b><p>The boldest option. A full-width brand-colour band creates immediate hierarchy and draws the eye to sizing.</p></div>
+    </div>
+
+    <div class="direction editorial cursor-interaction" data-choice="c" onclick="toggleSelect(this)">
+      <div class="preview">
+        <p class="product-kicker">Signature · Available</p>
+        <h3 class="product-name">Panchaloha Navratna</h3>
+        <div class="meta"><span>Available</span><span>SKU NV-PN-001</span></div>
+        <div class="size-rule"></div>
+        <div class="choice-label">Select bangle size <span>Four sizes</span></div>
+        <div class="sizes"><button type="button">2.4</button><button type="button">2.6</button><button type="button" class="active">2.8</button><button type="button">2.10</button></div>
+      </div>
+      <div class="caption"><b>C · Editorial line</b><p>Minimal and refined. The selected size is marked by a gold underline rather than a filled button.</p></div>
+    </div>
+  </div>
+</div>

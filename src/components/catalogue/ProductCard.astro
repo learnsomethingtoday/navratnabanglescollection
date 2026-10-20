@@ -1,47 +1,78 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 import type { ProductEntry } from '@/lib/products';
 import { formatAvailability } from '@/lib/products';
 import Icon from '@/components/shared/Icon.astro';
+import ProductPrice from '@/components/catalogue/ProductPrice.astro';
 const { product } = Astro.props as { product: ProductEntry };
 const { data } = product;
 const searchText = [data.name, data.sku, ...data.categories, data.collection, ...data.tags, ...data.material].filter(Boolean).join(' ').toLowerCase();
 ---
 <article class="product-card" data-product-card data-search={searchText} data-categories={data.categories.join('|')} data-collection={data.collection ?? ''}>
-  <a class="product-image" href={`/catalogue/${data.slug}/`} aria-label={`View details for ${data.name}`}>
-    <img src={data.images[0].src} alt={data.images[0].alt} loading="lazy" width="900" height="900" style={`object-position:${data.images[0].focalPosition ?? 'center'}`} />
-    <span class="placeholder-label">Preview content</span>
-  </a>
+  <div class="product-media" data-card-gallery>
+    <a class="product-image" href={siteUrl(`/catalogue/${data.slug}/`)} aria-label={`View details for ${data.name}`}>
+      {data.images.map((image, index) => (
+        <img src={siteUrl(image.src)} alt={image.alt} loading="lazy" width="900" height="900" data-card-image={index} hidden={index !== 0} style={`object-fit:${image.cardFit ?? 'contain'};object-position:${image.focalPosition ?? 'center'}`} />
+      ))}
+    </a>
+    {data.images.length > 1 && <>
+      <button class="card-gallery-arrow card-gallery-arrow--previous" type="button" aria-label={`Show previous image of ${data.name}`} data-card-previous><Icon name="arrow" /></button>
+      <button class="card-gallery-arrow card-gallery-arrow--next" type="button" aria-label={`Show next image of ${data.name}`} data-card-next><Icon name="arrow" /></button>
+      <span class="card-image-count" aria-live="polite" data-card-count>1 / {data.images.length}</span>
+    </>}
+  </div>
   <div class="product-content">
     <div class="product-meta"><span>{data.collection ?? data.categories[0]}</span><span>{formatAvailability(data.availability)}</span></div>
-    <h3><a href={`/catalogue/${data.slug}/`}>{data.name}</a></h3>
+    <h3><a href={siteUrl(`/catalogue/${data.slug}/`)}>{data.name}</a></h3>
     <p>{data.summary}</p>
+    <div class="card-price">
+      <ProductPrice price={data.price} mrp={data.mrp} currency={data.currency} showPrice={data.showPrice} piecesPerSet={data.piecesPerSet} compact />
+    </div>
     <dl>
       <div><dt>Category</dt><dd>{data.categories.join(', ')}</dd></div>
       <div><dt>Material</dt><dd>{data.material.join(', ')}</dd></div>
-      <div><dt>Sizes</dt><dd>{data.sizes.join(', ')}</dd></div>
-      <div><dt>Colors</dt><dd>{data.colors.map((color) => color.name).join(', ')}</dd></div>
+      <div><dt>Sizes</dt><dd class="card-size-options">{data.sizes.map((size) => <span>{size}</span>)}</dd></div>
+      <div><dt>Colour</dt><dd>{data.colors.map((color) => color.name).join(', ')}</dd></div>
       <div><dt>SKU</dt><dd>{data.sku}</dd></div>
     </dl>
-    <a class="card-link" href={`/catalogue/${data.slug}/`}>View details <Icon name="arrow" size={17} /></a>
+    <a class="card-link" href={siteUrl(`/catalogue/${data.slug}/`)}>View details <Icon name="arrow" size={17} /></a>
   </div>
 </article>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-card-gallery]').forEach((gallery) => {
+    if (gallery.dataset.galleryReady === 'true') return;
+    gallery.dataset.galleryReady = 'true';
+    const images = [...gallery.querySelectorAll<HTMLImageElement>('[data-card-image]')];
+    const count = gallery.querySelector<HTMLElement>('[data-card-count]');
+    let currentIndex = 0;
+    const selectImage = (index: number) => {
+      currentIndex = (index + images.length) % images.length;
+      images.forEach((image, imageIndex) => { image.hidden = imageIndex !== currentIndex; });
+      if (count) count.textContent = `${currentIndex + 1} / ${images.length}`;
+    };
+    gallery.querySelector<HTMLButtonElement>('[data-card-previous]')?.addEventListener('click', () => selectImage(currentIndex - 1));
+    gallery.querySelector<HTMLButtonElement>('[data-card-next]')?.addEventListener('click', () => selectImage(currentIndex + 1));
+  });
+</script>
 <style>
   .product-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); box-shadow: 0 0 0 rgb(52 35 25 / 0%); transition: transform .25s ease, box-shadow .25s ease; }
   .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
   .product-image { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid var(--line); background: #f2eadf; }
   .product-image img { width: 100%; height: 100%; object-fit: contain; transition: transform .5s ease; }
   .product-card:hover .product-image img { transform: scale(1.025); }
-  .product-image .placeholder-label { position: absolute; top: 14px; left: 14px; }
   .product-content { display: grid; gap: 14px; padding: 22px; }
   .product-meta { display: flex; justify-content: space-between; gap: 12px; color: var(--emerald); font-size: .65rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
   .product-meta span:last-child { color: var(--muted); text-align: right; }
   h3 { font-size: clamp(1.55rem, 2.3vw, 1.9rem); line-height: 1.05; }
   h3 a { text-decoration: none; }
   p { display: -webkit-box; overflow: hidden; margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .card-price { margin-bottom: -7px; }
   dl { display: grid; gap: 6px; margin: 2px 0 0; padding-top: 13px; border-top: 1px solid var(--line); }
   dl div { display: grid; grid-template-columns: 72px 1fr; gap: 8px; font-size: .72rem; }
   dt { color: var(--muted); }
   dd { overflow: hidden; margin: 0; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+  .card-size-options { display: flex; overflow: visible; flex-wrap: wrap; gap: 5px; white-space: normal; }
+  .card-size-options span { display: inline-flex; min-width: 34px; min-height: 26px; align-items: center; justify-content: center; padding: 2px 7px; border: 1px solid var(--line); border-radius: 999px; background: var(--ivory); font-size: .66rem; }
   .card-link { display: inline-flex; width: fit-content; align-items: center; gap: 8px; margin-top: 2px; color: var(--maroon); font-size: .78rem; font-weight: 600; text-decoration: none; }
   .card-link svg { transition: transform .2s ease; }
   .card-link:hover svg { transform: translateX(4px); }

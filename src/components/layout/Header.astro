@@ -1,4 +1,5 @@
 ---
+import { siteUrl } from '@/lib/site-url';
 import { siteConfig, whatsappUrl } from '@/data/site-config';
 import Icon from '@/components/shared/Icon.astro';
 const currentPath = Astro.url.pathname;
@@ -11,23 +12,23 @@ const links = [
 ---
 <header class="site-header" data-header>
   <div class="catalogue-notice">
-    <p><strong>Catalogue only — no online ordering.</strong> To enquire, <a href={`tel:${siteConfig.phoneHref}`}>call us</a> or <a href={whatsappUrl('Hello Navira Jewels, I would like to enquire about your Navratna bangles.')} target="_blank" rel="noopener">message on WhatsApp</a>.</p>
+    <p><strong>Catalogue only — no online ordering.</strong> To order/enquire, <a href={`tel:${siteConfig.phoneHref}`}>call us</a> or <a href={whatsappUrl('Hello Navira Jewels, I would like to enquire about your Navratna bangles.')} target="_blank" rel="noopener">message on WhatsApp</a>.</p>
   </div>
   <div class="header-inner">
-    <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
+    <a class="brand" href={siteUrl('/')} aria-label={`${siteConfig.name} home`}>
       <span class="brand-gem" aria-hidden="true"><Icon name="sparkle" size={18} /></span>
       <span><strong>{siteConfig.shortName}</strong><small>Jewels</small></span>
     </a>
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>)}
+      {links.map((link) => <a href={siteUrl(link.href)} aria-current={currentPath === siteUrl(link.href) ? 'page' : undefined}>{link.label}</a>)}
     </nav>
-    <a class="header-enquiry" href="/contact/">Make an enquiry <Icon name="arrow" size={17} /></a>
+    <a class="header-enquiry" href={siteUrl('/contact/')}>Make an enquiry <Icon name="arrow" size={17} /></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
       <span class="menu-icon"><Icon name="menu" /></span><span class="close-icon"><Icon name="close" /></span>
     </button>
   </div>
   <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
-    {links.map((link, index) => <a href={link.href} style={`--index:${index}`} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>)}
+    {links.map((link, index) => <a href={siteUrl(link.href)} style={`--index:${index}`} aria-current={currentPath === siteUrl(link.href) ? 'page' : undefined}>{link.label}</a>)}
     <p>Catalogue enquiries</p>
     <a class="mobile-phone" href={`tel:${siteConfig.phoneHref}`}>{siteConfig.phoneDisplay}</a>
   </nav>
