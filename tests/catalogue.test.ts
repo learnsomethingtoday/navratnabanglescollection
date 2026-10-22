@@ -192,6 +192,7 @@ describe('catalogue foundations', () => {
       'Fade-resistant finish',
       'Lightweight for regular wear',
       'Quality checked',
+      'Elegant Gold-Like Appearance',
     ]);
 
     const detailPage = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
@@ -326,6 +327,18 @@ describe('catalogue foundations', () => {
     expect(highlightsPosition).toBeGreaterThan(-1);
     expect(factsPosition).toBeGreaterThan(highlightsPosition);
     expect(featuresPosition).toBeGreaterThan(factsPosition);
+  });
+
+  it('replaces the product story with responsive two-column product information', () => {
+    const detail = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+
+    expect(detail).not.toContain('Product story');
+    expect(detail).not.toContain('<Content />');
+    expect(detail).not.toContain("import { render } from 'astro:content';");
+    expect(detail).toContain('.details-grid { display: grid; align-items: start;');
+    expect(detail).toContain('grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);');
+    expect(detail).toContain('@media (max-width: 880px) { .product-detail, .details-grid { grid-template-columns: 1fr; }');
+    expect(detail).toContain('.product-facts dl { display: grid; gap: 0; margin: -2px 0 4px; }');
   });
 
   it('places available size selection above the product enquiry action', () => {
@@ -574,6 +587,13 @@ describe('catalogue foundations', () => {
     expect(contactPage).toContain('Call directly for product information, assistance and orders.');
     const aboutPage = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
     expect(aboutPage).toContain('When a piece interests you, a call or WhatsApp conversation lets the business share the most current information personally and can help you to order as per your need.');
+  });
+
+  it('describes the nine Navratna gems and their traditional positive associations', () => {
+    const aboutPage = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+    expect(aboutPage).toContain('The word “Navratna” refers to nine gems - ruby, pearl, red coral, emerald, yellow sapphire, diamond, blue sapphire, hessonite, and cat’s-eye. Each is associated with one of the nine celestial influences of the Navagraha, creating a colourful composition that symbolises completeness and harmony.');
+    expect(aboutPage).toContain('In Indian tradition, Navratna jewellery is regarded as auspicious and is believed to encourage balance, protection, prosperity, and positive energy.');
+    expect(aboutPage).not.toContain('For this catalogue, we focus on what can be responsibly presented');
   });
 
   it('renders the WhatsApp mark as a clean filled icon instead of overlapping outline paths', () => {

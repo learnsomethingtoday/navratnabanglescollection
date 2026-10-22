@@ -1,6 +1,5 @@
 ---
 import { siteUrl } from '@/lib/site-url';
-import { render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/shared/Breadcrumbs.astro';
 import ProductGallery from '@/components/catalogue/ProductGallery.astro';
@@ -15,7 +14,6 @@ export async function getStaticPaths() {
   return products.map((product) => ({ params: { slug: product.data.slug }, props: { product, products } }));
 }
 const { product, products } = Astro.props as { product: ProductEntry; products: ProductEntry[] };
-const { Content } = await render(product);
 const related = getRelatedProducts(product, products, 3);
 const { data } = product;
 ---
@@ -38,13 +36,12 @@ const { data } = product;
   </section>
   <section class="details-section">
     <div class="container details-grid">
-      <article class="description"><p class="eyebrow">The piece</p><h2>Product story</h2><div class="prose"><Content /></div></article>
+      <section class="product-highlights">
+        <p class="eyebrow">Made for everyday ease</p>
+        <h2>Product highlights</h2>
+        <ul>{siteConfig.productHighlights.map((item) => <li>{item}</li>)}</ul>
+      </section>
       <div class="specifications">
-        <section class="product-highlights">
-          <p class="eyebrow">Made for everyday ease</p>
-          <h2>Product highlights</h2>
-          <ul>{siteConfig.productHighlights.map((item) => <li>{item}</li>)}</ul>
-        </section>
         <details open class="product-facts">
           <summary>Product details</summary>
           <dl>
@@ -83,22 +80,19 @@ const { data } = product;
   .product-info :global(.contact-band h2) { font-size: 2rem; }
   .product-info :global(.contact-band p:last-child) { font-size: .82rem; }
   .details-section { padding: clamp(70px, 9vw, 110px) 0; background: var(--maroon-dark); color: #eee1dc; }
-  .details-grid { display: grid; gap: clamp(50px, 9vw, 120px); grid-template-columns: .8fr 1.2fr; }
-  .description { position: sticky; top: 118px; align-self: start; }
-  .description h2 { color: white; }
-  .description .eyebrow { color: var(--gold-soft); }
-  .prose { margin-top: 24px; color: #cfbfb8; }
+  .details-grid { display: grid; align-items: start; gap: clamp(50px, 9vw, 120px); grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .specifications { min-width: 0; }
   .specifications details { border-top: 1px solid rgb(255 255 255 / 18%); }
   .specifications details:last-child { border-bottom: 1px solid rgb(255 255 255 / 18%); }
   .specifications summary { padding: 22px 0; color: white; font-family: var(--serif); font-size: 1.65rem; cursor: pointer; }
   .specifications ul { display: grid; gap: 8px; margin: -6px 0 22px; padding-left: 20px; color: #cfbfb8; }
-  .product-highlights { margin: 18px 0 28px; padding: clamp(22px, 4vw, 32px); border: 1px solid rgb(225 194 126 / 35%); border-radius: var(--radius-md); background: rgb(255 255 255 / 5%); }
+  .product-highlights { position: sticky; top: 118px; margin: 0; padding: clamp(22px, 4vw, 32px); border: 1px solid rgb(225 194 126 / 35%); border-radius: var(--radius-md); background: rgb(255 255 255 / 5%); }
   .product-highlights .eyebrow { color: var(--gold-soft); }
   .product-highlights h2 { margin: 7px 0 20px; color: white; font-size: clamp(2rem, 4vw, 2.8rem); }
   .product-highlights ul { display: grid; gap: 12px 18px; margin: 0; padding: 0; color: #eee1dc; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; }
   .product-highlights li { position: relative; padding-left: 24px; }
   .product-highlights li::before { position: absolute; top: .55em; left: 0; width: 8px; height: 8px; border-radius: 50%; content: ''; background: var(--gold-soft); box-shadow: 0 0 0 4px rgb(225 194 126 / 12%); }
-  .product-facts dl { display: grid; gap: 0; margin: -2px 0 22px; }
+  .product-facts dl { display: grid; gap: 0; margin: -2px 0 4px; }
   .product-facts dl > div { display: grid; gap: 18px; padding: 14px 0; border-top: 1px solid rgb(255 255 255 / 10%); grid-template-columns: minmax(90px, .35fr) 1fr; }
   .product-facts dl > div:first-child { border-top: 0; }
   .product-facts dt { color: var(--gold-soft); font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
@@ -107,6 +101,6 @@ const { data } = product;
   .fact-colours i { width: 16px; height: 16px; border: 1px solid white; border-radius: 50%; background: var(--swatch); }
   .related { background: var(--paper); }
   .related .section-heading > a { justify-self: end; align-self: end; }
-  @media (max-width: 880px) { .product-detail, .details-grid { grid-template-columns: 1fr; } .product-info, .description { position: static; } }
+  @media (max-width: 880px) { .product-detail, .details-grid { grid-template-columns: 1fr; } .product-info, .product-highlights { position: static; } }
   @media (max-width: 720px) { .related .section-heading > a { justify-self: start; } .product-highlights ul { grid-template-columns: 1fr; } .product-facts dl > div { gap: 6px; grid-template-columns: 1fr; } }
 </style>

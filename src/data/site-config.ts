@@ -15,6 +15,7 @@ export const siteConfig = {
     'Fade-resistant finish',
     'Lightweight for regular wear',
     'Quality checked',
+    'Elegant Gold-Like Appearance',
   ],
 } as const;
 

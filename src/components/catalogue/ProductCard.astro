@@ -39,19 +39,38 @@ const searchText = [data.name, data.sku, ...data.categories, data.collection, ..
   </div>
 </article>
 <script>
+  import { preloadAdjacentImages, revealGalleryImage } from '@/lib/card-gallery';
+
   document.querySelectorAll<HTMLElement>('[data-card-gallery]').forEach((gallery) => {
     if (gallery.dataset.galleryReady === 'true') return;
     gallery.dataset.galleryReady = 'true';
     const images = [...gallery.querySelectorAll<HTMLImageElement>('[data-card-image]')];
     const count = gallery.querySelector<HTMLElement>('[data-card-count]');
     let currentIndex = 0;
-    const selectImage = (index: number) => {
-      currentIndex = (index + images.length) % images.length;
-      images.forEach((image, imageIndex) => { image.hidden = imageIndex !== currentIndex; });
+    let selectionInProgress = false;
+
+    const preloadNeighbours = () => preloadAdjacentImages(images, currentIndex);
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        preloadNeighbours();
+        observer.disconnect();
+      }, { rootMargin: '300px 0px' });
+      observer.observe(gallery);
+    } else {
+      preloadNeighbours();
+    }
+
+    const selectImage = async (index: number) => {
+      if (selectionInProgress) return;
+      selectionInProgress = true;
+      currentIndex = await revealGalleryImage(images, index);
       if (count) count.textContent = `${currentIndex + 1} / ${images.length}`;
+      preloadNeighbours();
+      selectionInProgress = false;
     };
-    gallery.querySelector<HTMLButtonElement>('[data-card-previous]')?.addEventListener('click', () => selectImage(currentIndex - 1));
-    gallery.querySelector<HTMLButtonElement>('[data-card-next]')?.addEventListener('click', () => selectImage(currentIndex + 1));
+    gallery.querySelector<HTMLButtonElement>('[data-card-previous]')?.addEventListener('click', () => void selectImage(currentIndex - 1));
+    gallery.querySelector<HTMLButtonElement>('[data-card-next]')?.addEventListener('click', () => void selectImage(currentIndex + 1));
   });
 </script>
 <style>
