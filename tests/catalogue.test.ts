@@ -473,7 +473,7 @@ describe('catalogue foundations', () => {
     const ctaPosition = home.indexOf('class="featured-catalogue-cta"');
 
     expect(ctaPosition).toBeGreaterThan(gridPosition);
-    expect(home).toContain('<a class="button button--outline" href={siteUrl(\'/catalogue/\')}>View full catalogue <Icon name="arrow" /></a>');
+    expect(home).toContain('<a class="button" href={siteUrl(\'/catalogue/\')}>View full catalogue <Icon name="arrow" /></a>');
     expect(home).toContain('.featured-catalogue-cta { display: flex; justify-content: center; margin-top:');
     expect(home).toContain('.featured-catalogue-cta .button { width: 100%; justify-content: center; }');
   });
