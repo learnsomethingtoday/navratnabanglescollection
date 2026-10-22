@@ -53,9 +53,9 @@ import Icon from '@/components/shared/Icon.astro';
   .about-title h1 em { color: var(--gold); font-weight: 500; }
   .about-intro .disclaimer { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); color: #887a74; font-size: .75rem; }
   .principle-strip { padding: 18px 0; border-top: 1px solid var(--gold-soft); border-bottom: 1px solid var(--gold-soft); background: #f7efdf; }
-  .principle-strip .container { display: flex; justify-content: space-around; gap: 22px; color: var(--maroon); font-family: var(--serif); font-size: clamp(1rem, 2vw, 1.35rem); font-style: italic; }
+  .principle-strip .container { display: flex; align-items: center; justify-content: space-around; gap: 22px; color: var(--maroon); font-family: var(--serif); font-size: clamp(1rem, 2vw, 1.35rem); font-style: italic; }
   .principle-strip i { color: var(--gold); font-size: .7rem; }
-  .tradition { background: var(--paper); }
+  .tradition { padding: clamp(56px, 7vw, 88px) 0 clamp(40px, 5vw, 64px); background: var(--paper); }
   .tradition-grid { display: grid; align-items: center; gap: clamp(54px, 9vw, 130px); grid-template-columns: .9fr 1.1fr; }
   .tradition-art { position: relative; display: grid; min-height: 540px; place-items: center; overflow: hidden; border-radius: var(--radius-lg); background: var(--maroon-dark); color: white; }
   .tradition-art > strong { font-family: var(--serif); font-size: 10rem; font-weight: 500; line-height: 1; }
@@ -64,13 +64,15 @@ import Icon from '@/components/shared/Icon.astro';
   .gem-wheel span { position: absolute; top: calc(50% - 16px); left: calc(50% - 16px); width: 32px; height: 32px; transform: rotate(var(--angle)) translateX(170px); }
   .gem-wheel i { display: block; width: 100%; height: 100%; border: 4px solid #d3ad62; border-radius: 50%; background: var(--stone); box-shadow: 0 5px 14px rgb(0 0 0 / 30%); }
   @keyframes turn { to { transform: rotate(360deg); } }
+  @keyframes turn-mobile { from { transform: scale(.75) rotate(0deg); } to { transform: scale(.75) rotate(360deg); } }
+  .tradition-copy { align-self: end; }
   .tradition-copy h2 { margin-bottom: 28px; }
   .tradition-copy p:not(.eyebrow) { color: var(--muted); font-size: 1.02rem; }
   .comparison { background: var(--ivory); }
   .comparison-grid { display: grid; border-top: 1px solid var(--line); border-left: 1px solid var(--line); grid-template-columns: repeat(4, 1fr); }
-  .comparison-grid article { min-height: 300px; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgb(255 253 249 / 60%); }
+  .comparison-grid article { min-height: 0; padding: 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgb(255 253 249 / 60%); }
   .comparison-grid span { color: var(--gold); font-family: var(--serif); }
-  .comparison-grid h3 { margin: 70px 0 14px; font-size: 1.8rem; }
+  .comparison-grid h3 { margin: 30px 0 12px; font-size: 1.8rem; }
   .comparison-grid p { color: var(--muted); font-size: .84rem; }
   .philosophy { background: var(--emerald); color: #e8f0ed; }
   .philosophy-grid { display: grid; gap: clamp(45px, 9vw, 130px); grid-template-columns: 1fr 1fr; }
@@ -80,5 +82,5 @@ import Icon from '@/components/shared/Icon.astro';
   .philosophy .button--outline { margin-top: 18px; border-color: var(--gold-soft); color: white; }
   .philosophy .button--outline:hover { border-color: var(--maroon); }
   @media (max-width: 900px) { .about-hero, .tradition-grid, .philosophy-grid { grid-template-columns: 1fr; } .comparison-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .principle-strip .container { align-items: center; flex-direction: column; gap: 4px; } .principle-strip i { display: none; } .tradition-art { min-height: 420px; } .gem-wheel { transform: scale(.75); } .comparison-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .principle-strip .container { display: grid; gap: 6px 12px; text-align: center; grid-template-columns: repeat(2, minmax(0, 1fr)); } .principle-strip span:first-child { grid-column: 1 / -1; } .principle-strip i { display: none; } .tradition-art { min-height: 420px; } .gem-wheel { animation-name: turn-mobile; } .comparison-grid { grid-template-columns: 1fr; } }
 </style>

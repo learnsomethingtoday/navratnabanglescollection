@@ -113,6 +113,12 @@ All eight products use the confirmed material label **Brass & Copper** and the a
 
 Product-detail pages do not display the former **The piece / Product story** block or render the Markdown body beneath it. On desktop and tablet, the dark details section uses two columns: **Product highlights** on the left and the **Product details**, **Features**, and **Care instructions** disclosures on the right. At widths up to 880px, these sections stack into a single column in the same order for a compact mobile presentation.
 
+On the Our Story page, the nine-gem wheel rotates on both desktop and mobile. The phone layout uses dedicated `turn-mobile` keyframes that preserve the reduced 75% scale throughout the rotation; do not reintroduce a standalone mobile `transform: scale(...)` on `.gem-wheel`, because it conflicts with the transform-based rotation animation.
+
+The Our Story page uses a compact transition after the Navratna tradition copy: the copy aligns with the bottom of its artwork on desktop and the section has reduced lower padding at every breakpoint. The four numbered benefit cards use content-led heights with a 30px gap between their number and heading instead of the former tall fixed layout. In the shared **Have a piece in mind?** panel, the Call action uses the primary solid-maroon treatment and WhatsApp retains its original solid-green treatment.
+
+The Home hero phrase strip (**Panchaloha Bangles · Timeless Colour · Everyday Grace**) uses its original centred desktop presentation, with compact decorative star separators between the three phrases. The Our Story principle strip (**Colour in balance · Grace in motion · Details with clarity**) keeps its evenly spaced desktop presentation, with its smaller star separators vertically centred against the phrase text. At phone widths, both strips place the first phrase across the full first row and the remaining two phrases side by side beneath it, with decorative stars hidden.
+
 Within the product-detail disclosures, the Product details list uses only a 4px bottom margin after the Colour row. This keeps the transition into Features compact while retaining a small visual separation and the existing disclosure divider.
 
 Every current product uses only these five concise care-instruction labels: **Keep Dry**, **Handle Gently**, **Avoid Abrasive Cleaners**, **Store Separately**, and **Wipe After Use**. Do not add explanatory sentences to the product-detail care list unless the user requests them.

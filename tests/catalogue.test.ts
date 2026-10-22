@@ -121,7 +121,24 @@ describe('catalogue foundations', () => {
     expect(home).toContain('grid-template-columns: repeat(2, minmax(0, 1fr));');
     expect(home).toContain('.hero-marquee { min-width: 0;');
     expect(home).toContain('.hero-marquee span:first-child { grid-column: 1 / -1; }');
-    expect(home).toContain('.hero-marquee span + span::before');
+    expect(home).toContain('.hero-marquee span + span::before { display: none; }');
+  });
+
+  it('restores the original centred Home phrase strip on desktop', () => {
+    const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
+    const about = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+
+    expect(home).toContain('<span>Panchaloha Bangles</span><span>Timeless Colour</span><span>Everyday Grace</span>');
+    expect(home).toContain('.hero-marquee { display: flex; min-width: max-content; align-items: center; justify-content: center;');
+    expect(home).toContain(".hero-marquee span + span::before { margin: 0 30px; color: var(--gold); content: '✦';");
+    expect(about).toContain('.principle-strip .container { display: grid; gap: 6px 12px; text-align: center; grid-template-columns: repeat(2, minmax(0, 1fr)); }');
+    expect(about).toContain('.principle-strip span:first-child { grid-column: 1 / -1; }');
+  });
+
+  it('vertically centres the Our Story desktop star separators', () => {
+    const about = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+
+    expect(about).toContain('.principle-strip .container { display: flex; align-items: center; justify-content: space-around;');
   });
 
   it('hides only the hero photograph on mobile while retaining it for larger screens', () => {
@@ -594,6 +611,36 @@ describe('catalogue foundations', () => {
     expect(aboutPage).toContain('The word “Navratna” refers to nine gems - ruby, pearl, red coral, emerald, yellow sapphire, diamond, blue sapphire, hessonite, and cat’s-eye. Each is associated with one of the nine celestial influences of the Navagraha, creating a colourful composition that symbolises completeness and harmony.');
     expect(aboutPage).toContain('In Indian tradition, Navratna jewellery is regarded as auspicious and is believed to encourage balance, protection, prosperity, and positive energy.');
     expect(aboutPage).not.toContain('For this catalogue, we focus on what can be responsibly presented');
+  });
+
+  it('keeps the nine-gem wheel scaled and rotating on mobile', () => {
+    const aboutPage = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+
+    expect(aboutPage).toContain('@keyframes turn-mobile { from { transform: scale(.75) rotate(0deg); } to { transform: scale(.75) rotate(360deg); } }');
+    expect(aboutPage).toContain('.gem-wheel { animation-name: turn-mobile; }');
+    expect(aboutPage).not.toContain('.gem-wheel { transform: scale(.75); }');
+  });
+
+  it('keeps the transition below the Navratna tradition copy compact', () => {
+    const aboutPage = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+
+    expect(aboutPage).toContain('.tradition { padding: clamp(56px, 7vw, 88px) 0 clamp(40px, 5vw, 64px);');
+    expect(aboutPage).toContain('.tradition-copy { align-self: end; }');
+  });
+
+  it('uses content-led heights for the Our Story benefit cards', () => {
+    const aboutPage = readFileSync(join(projectRoot, 'src/pages/about.astro'), 'utf8');
+
+    expect(aboutPage).toContain('.comparison-grid article { min-height: 0;');
+    expect(aboutPage).toContain('.comparison-grid h3 { margin: 30px 0 12px;');
+  });
+
+  it('presents calling as the primary maroon contact action', () => {
+    const contactBand = readFileSync(join(projectRoot, 'src/components/shared/ContactBand.astro'), 'utf8');
+
+    expect(contactBand).toContain('class="button button--whatsapp"');
+    expect(contactBand).toContain('class="button" href={`tel:${siteConfig.phoneHref}`}');
+    expect(contactBand).not.toContain('button--whatsapp-secondary');
   });
 
   it('renders the WhatsApp mark as a clean filled icon instead of overlapping outline paths', () => {
