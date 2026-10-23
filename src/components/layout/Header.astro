@@ -5,14 +5,14 @@ import Icon from '@/components/shared/Icon.astro';
 const currentPath = Astro.url.pathname;
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/catalogue/', label: 'Catalogue' },
+  { href: '/catalogue/', label: 'Collection' },
   { href: '/about/', label: 'Our Story' },
   { href: '/contact/', label: 'Contact' },
 ];
 ---
 <header class="site-header" data-header>
   <div class="catalogue-notice">
-    <p><strong>Catalogue only — no online ordering.</strong> To order/enquire, <a href={`tel:${siteConfig.phoneHref}`}>call us</a> or <a href={whatsappUrl('Hello Navira Jewels, I would like to enquire about your Navratna bangles.')} target="_blank" rel="noopener">message on WhatsApp</a>.</p>
+    <p><strong>Collection only — no online ordering.</strong> To order/enquire, <a href={`tel:${siteConfig.phoneHref}`}>call us</a> or <a href={whatsappUrl('Hello Navira Jewels, I would like to enquire about your Navratna bangles.')} target="_blank" rel="noopener">message on WhatsApp</a>.</p>
   </div>
   <div class="header-inner">
     <a class="brand" href={siteUrl('/')} aria-label={`${siteConfig.name} home`}>
@@ -29,7 +29,7 @@ const links = [
   </div>
   <nav class="mobile-nav" id="mobile-menu" aria-label="Mobile navigation" hidden>
     {links.map((link, index) => <a href={siteUrl(link.href)} style={`--index:${index}`} aria-current={currentPath === siteUrl(link.href) ? 'page' : undefined}>{link.label}</a>)}
-    <p>Catalogue enquiries</p>
+    <p>Collection enquiries</p>
     <a class="mobile-phone" href={`tel:${siteConfig.phoneHref}`}>{siteConfig.phoneDisplay}</a>
   </nav>
 </header>

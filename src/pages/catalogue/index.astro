@@ -9,12 +9,12 @@ const products = await getProducts();
 const categories = [...new Set(products.flatMap(({ data }) => data.categories))].sort();
 const collections = [...new Set(products.map(({ data }) => data.collection).filter((value): value is string => Boolean(value)))].sort();
 ---
-<BaseLayout title="Catalogue" description="Browse the Navira Jewels catalogue of Navratna-inspired bangles.">
-  <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Catalogue' }]} />
+<BaseLayout title="Collection" description="Browse the Navira Jewels collection of Navratna-inspired bangles.">
+  <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Collection' }]} />
   <header class="page-header container">
     <div><p class="eyebrow">The collection</p><h1>Find your<br /><em>kind of colour.</em></h1></div>
     <div>
-      <p class="lede">Explore a distinctive collection inspired by Navratna’s rich tradition of colour—thoughtfully selected for everyday elegance, festive moments, and special celebrations. More designs will be added to our growing catalogue soon.</p>
+      <p class="lede">Explore a distinctive collection inspired by Navratna’s rich tradition of colour—thoughtfully selected for everyday elegance, festive moments, and special celebrations. More designs will be added to our growing collection soon.</p>
       <div class="catalogue-status">
         <span class="placeholder-label">{products.length} available designs</span>
         <span class="catalogue-expansion-note">More designs arriving soon</span>
@@ -24,16 +24,16 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
 
   <section class="catalogue-section" aria-labelledby="catalogue-title">
     <div class="container">
-      <h2 id="catalogue-title" class="sr-only">All catalogue products</h2>
+      <h2 id="catalogue-title" class="sr-only">All products in the collection</h2>
       <div class="catalogue-controls">
-        <label class="search-field"><span>Search catalogue</span><span class="input-wrap"><Icon name="search" size={18} /><input type="search" name="search" placeholder="Name, SKU, material or tag" autocomplete="off" data-product-search /></span></label>
+        <label class="search-field"><span>Search collection</span><span class="input-wrap"><Icon name="search" size={18} /><input type="search" name="search" placeholder="Name, SKU, material or tag" autocomplete="off" data-product-search /></span></label>
         <label><span>Category</span><select data-category-filter><option value="">All categories</option>{categories.map((category) => <option value={category}>{category}</option>)}</select></label>
         <label><span>Collection</span><select data-collection-filter><option value="">All collections</option>{collections.map((collection) => <option value={collection}>{collection}</option>)}</select></label>
         <button class="reset-button" type="button" data-reset-filters>Clear filters</button>
       </div>
-      <div class="results-bar"><p aria-live="polite" aria-atomic="true" data-result-count>Showing all {products.length} products</p><p>Catalogue only · Enquire by call or WhatsApp</p></div>
+      <div class="results-bar"><p aria-live="polite" aria-atomic="true" data-result-count>Showing all {products.length} products</p><p>Collection only · Enquire by call or WhatsApp</p></div>
       <ProductGrid products={products} id="product-grid" />
-      <div class="empty-state" data-empty-state hidden><h3>No pieces found</h3><p>Try a different search term or clear the filters to see the full catalogue.</p><button class="button button--outline" type="button" data-empty-reset>Clear all filters</button></div>
+      <div class="empty-state" data-empty-state hidden><h3>No pieces found</h3><p>Try a different search term or clear the filters to see the full collection.</p><button class="button button--outline" type="button" data-empty-reset>Clear all filters</button></div>
     </div>
   </section>
   <div class="container section--compact"><ContactBand /></div>

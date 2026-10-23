@@ -6,7 +6,7 @@ import { siteConfig } from '@/data/site-config';
 import '@/styles/global.css';
 interface Props { title?: string; description?: string; image?: string; }
 const { title, description = siteConfig.description, image } = Astro.props;
-const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} | Navratna Bangle Catalogue`;
+const pageTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} | Navratna Bangle Collection`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 ---
 <!doctype html>

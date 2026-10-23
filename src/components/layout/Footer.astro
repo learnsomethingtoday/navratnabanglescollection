@@ -16,14 +16,14 @@ import Icon from '@/components/shared/Icon.astro';
       </div>
       <nav class="footer-links" aria-label="Footer navigation">
         <h2>Explore</h2>
-        <div class="footer-link-row"><a href={siteUrl('/catalogue/')}>Catalogue</a><a href={siteUrl('/about/')}>Our Story</a><a href={siteUrl('/contact/')}>Contact</a></div>
+        <div class="footer-link-row"><a href={siteUrl('/catalogue/')}>Collection</a><a href={siteUrl('/about/')}>Our Story</a><a href={siteUrl('/contact/')}>Contact</a></div>
       </nav>
     </div>
     <div class="footer-contact">
       <h2>Get in touch</h2>
       <div class="footer-contact-links">
         <a class="footer-contact-link" href={`tel:${siteConfig.phoneHref}`}><span>Call us</span><strong>{siteConfig.phoneDisplay}</strong></a>
-        <a class="footer-contact-link" href={whatsappUrl('Hello Navira Jewels, I would like to know more about your catalogue.')} target="_blank" rel="noopener"><span>WhatsApp</span><strong>Send an enquiry</strong></a>
+        <a class="footer-contact-link" href={whatsappUrl('Hello Navira Jewels, I would like to know more about your collection.')} target="_blank" rel="noopener"><span>WhatsApp</span><strong>Send an enquiry</strong></a>
       </div>
       <div class="footer-service-list" aria-label="Service information">
         <div><strong>Local delivery</strong><span>{siteConfig.localDelivery}</span></div>
@@ -34,7 +34,7 @@ import Icon from '@/components/shared/Icon.astro';
   </div>
   <div class="container footer-bottom">
     <span>© {new Date().getFullYear()} {siteConfig.name}</span>
-    <span>Catalogue only · No online ordering</span>
+    <span>Collection only · No online ordering</span>
   </div>
 </footer>
 <style>

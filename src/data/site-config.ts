@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: 'Navira Jewels',
   shortName: 'Navira',
-  description: 'An elegant catalogue of Navratna bangles for everyday grace and special occasions.',
+  description: 'An elegant collection of Navratna bangles for everyday grace and special occasions.',
   phoneDisplay: '+91 72077 42722',
   phoneHref: '+917207742722',
   whatsappNumber: '917207742722',

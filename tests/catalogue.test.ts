@@ -149,14 +149,14 @@ describe('catalogue foundations', () => {
     expect(home).not.toContain('.hero-marquee { display: none; }');
   });
 
-  it('switches the Home story link for a catalogue enquiry note on mobile', () => {
+  it('switches the Home story link for a collection enquiry note on mobile', () => {
     const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
 
     expect(home).toContain('class="text-link hero-story-link"');
     expect(home).toContain('>Discover our story</a>');
     expect(home).toContain('.hero-story-link { display: none; }');
-    expect(home).toContain('<p class="catalogue-note">Catalogue only · Order/Enquire by call or WhatsApp</p>');
-    expect(home).not.toContain('<p class="catalogue-note">Catalogue only · Enquire by call or WhatsApp</p>');
+    expect(home).toContain('<p class="catalogue-note">Collection only · Order/Enquire by call or WhatsApp</p>');
+    expect(home).not.toContain('<p class="catalogue-note">Collection only · Enquire by call or WhatsApp</p>');
     expect(home).toContain('.catalogue-note { display: none;');
     expect(home).toContain('.catalogue-note { display: block; }');
     expect(home).not.toContain('Order by call or WhatsApp');
@@ -467,13 +467,13 @@ describe('catalogue foundations', () => {
     expect(home).toContain('<ProductGrid products={featured} />');
   });
 
-  it('offers the full catalogue directly below the Home featured cards', () => {
+  it('offers the full collection directly below the Home featured cards', () => {
     const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
     const gridPosition = home.indexOf('<ProductGrid products={featured} />');
     const ctaPosition = home.indexOf('class="featured-catalogue-cta"');
 
     expect(ctaPosition).toBeGreaterThan(gridPosition);
-    expect(home).toContain('<a class="button" href={siteUrl(\'/catalogue/\')}>View full catalogue <Icon name="arrow" /></a>');
+    expect(home).toContain('<a class="button" href={siteUrl(\'/catalogue/\')}>View full collection <Icon name="arrow" /></a>');
     expect(home).toContain('.featured-catalogue-cta { display: flex; justify-content: center; margin-top:');
     expect(home).toContain('.featured-catalogue-cta .button { width: 100%; justify-content: center; }');
   });
@@ -595,9 +595,75 @@ describe('catalogue foundations', () => {
     expect(productCard).toContain('/catalogue/${data.slug}/');
   });
 
+  it('uses Collection in public copy while preserving catalogue routes', () => {
+    const expectedCopy: Record<string, string[]> = {
+      'src/components/layout/Header.astro': [
+        "{ href: '/catalogue/', label: 'Collection' }",
+        '<strong>Collection only — no online ordering.</strong>',
+        '<p>Collection enquiries</p>',
+      ],
+      'src/components/layout/Footer.astro': [
+        '>Collection</a>',
+        'I would like to know more about your collection.',
+        'Collection only · No online ordering',
+      ],
+      'src/components/shared/ContactBand.astro': ['Navratna bangle collection.'],
+      'src/layouts/BaseLayout.astro': ['Navratna Bangle Collection'],
+      'src/data/site-config.ts': ['An elegant collection of Navratna bangles'],
+      'src/pages/index.astro': [
+        'Discover an evolving collection of Navratna-inspired bangles',
+        '>Explore the collection <Icon',
+        'Collection only · Order/Enquire by call or WhatsApp',
+        'more additions joining the collection soon',
+        '>View the full collection</a>',
+        '>View full collection <Icon',
+      ],
+      'src/pages/catalogue/index.astro': [
+        'title="Collection"',
+        "{ label: 'Collection' }",
+        'growing collection soon',
+        'All products in the collection',
+        '<span>Search collection</span>',
+        'Collection only · Enquire by call or WhatsApp',
+        'see the full collection',
+      ],
+      'src/pages/catalogue/[slug].astro': [
+        "{ label: 'Collection', href: '/catalogue/' }",
+        '>View the full collection</a>',
+      ],
+      'src/pages/about.astro': [
+        'Our collection celebrates that visual tradition',
+        '>Browse the collection <Icon',
+      ],
+      'src/pages/contact.astro': [
+        'Navratna bangle collection.',
+        'for collection and product information',
+        'Direct collection enquiries',
+        'future collection additions',
+        'ready-to-send collection enquiry',
+      ],
+      'src/pages/404.astro': [
+        'Return to the collection to keep exploring.',
+        '>Browse the collection <Icon',
+      ],
+    };
+
+    for (const [file, snippets] of Object.entries(expectedCopy)) {
+      const source = readFileSync(join(projectRoot, file), 'utf8');
+      for (const snippet of snippets) expect(source).toContain(snippet);
+    }
+
+    const header = readFileSync(join(projectRoot, 'src/components/layout/Header.astro'), 'utf8');
+    const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
+    const card = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
+    expect(header).toContain("href: '/catalogue/'");
+    expect(home).toContain("siteUrl('/catalogue/')");
+    expect(card).toContain('/catalogue/${data.slug}/');
+  });
+
   it('shows the no-online-ordering message with direct enquiry options site-wide', () => {
     const header = readFileSync(join(projectRoot, 'src/components/layout/Header.astro'), 'utf8');
-    expect(header).toContain('Catalogue only — no online ordering.');
+    expect(header).toContain('Collection only — no online ordering.');
     expect(header).toContain('tel:${siteConfig.phoneHref}');
     expect(header).toContain('whatsappUrl(');
     const contactPage = readFileSync(join(projectRoot, 'src/pages/contact.astro'), 'utf8');

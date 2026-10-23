@@ -3,13 +3,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/shared/Breadcrumbs.astro';
 import Icon from '@/components/shared/Icon.astro';
 import { siteConfig, whatsappUrl } from '@/data/site-config';
-const generalMessage = 'Hello Navira Jewels, I would like to know more about your Navratna bangle catalogue.';
+const generalMessage = 'Hello Navira Jewels, I would like to know more about your Navratna bangle collection.';
 ---
-<BaseLayout title="Contact" description="Call or WhatsApp Navira Jewels for catalogue and product information.">
+<BaseLayout title="Contact" description="Call or WhatsApp Navira Jewels for collection and product information.">
   <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
   <header class="contact-hero container">
-    <div><span class="placeholder-label">Direct catalogue enquiries</span><p class="eyebrow">Let’s talk</p><h1>Questions?<br /><em>We’re listening.</em></h1></div>
-    <p class="lede">Ask about a design, availability, sizing, or future catalogue additions. Your message starts a conversation—it does not place an order.</p>
+    <div><span class="placeholder-label">Direct collection enquiries</span><p class="eyebrow">Let’s talk</p><h1>Questions?<br /><em>We’re listening.</em></h1></div>
+    <p class="lede">Ask about a design, availability, sizing, or future collection additions. Your message starts a conversation—it does not place an order.</p>
   </header>
 
   <section class="contact-main">
@@ -17,7 +17,7 @@ const generalMessage = 'Hello Navira Jewels, I would like to know more about you
       <div class="contact-actions">
         <article>
           <span class="contact-icon"><Icon name="whatsapp" size={24} /></span>
-          <div><p class="eyebrow">WhatsApp</p><h2>Start a conversation</h2><p>Open WhatsApp with a ready-to-send catalogue enquiry.</p><a class="button button--whatsapp" href={whatsappUrl(generalMessage)} target="_blank" rel="noopener">Message us <Icon name="arrow" /></a></div>
+          <div><p class="eyebrow">WhatsApp</p><h2>Start a conversation</h2><p>Open WhatsApp with a ready-to-send collection enquiry.</p><a class="button button--whatsapp" href={whatsappUrl(generalMessage)} target="_blank" rel="noopener">Message us <Icon name="arrow" /></a></div>
         </article>
         <article>
           <span class="contact-icon"><Icon name="phone" size={24} /></span>
