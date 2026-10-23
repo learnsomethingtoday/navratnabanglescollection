@@ -18,7 +18,7 @@ const related = getRelatedProducts(product, products, 3);
 const { data } = product;
 ---
 <BaseLayout title={data.name} description={data.summary} image={data.images[0].src}>
-  <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Collection', href: '/catalogue/' }, { label: data.name }]} />
+  <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Collection', href: '/collection/' }, { label: data.name }]} />
   <section class="product-detail container">
     <ProductGallery images={data.images} productName={data.name} />
     <div class="product-info">
@@ -54,7 +54,7 @@ const { data } = product;
       </div>
     </div>
   </section>
-  <section class="section related" aria-labelledby="related-title"><div class="container"><div class="section-heading section-heading--split"><div><p class="eyebrow">Continue exploring</p><h2 id="related-title">Related designs</h2></div><a class="text-link" href={siteUrl('/catalogue/')}>View the full collection</a></div><ProductGrid products={related} /></div></section>
+  <section class="section related" aria-labelledby="related-title"><div class="container"><div class="section-heading section-heading--split"><div><p class="eyebrow">Continue exploring</p><h2 id="related-title">Related designs</h2></div><a class="text-link" href={siteUrl('/collection/')}>View the full collection</a></div><ProductGrid products={related} /></div></section>
 </BaseLayout>
 <script>
   document.querySelectorAll<HTMLElement>('.size-options').forEach((group) => {

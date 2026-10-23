@@ -22,9 +22,9 @@ const collections = [...new Set(products.map(({ data }) => data.collection).filt
     </div>
   </header>
 
-  <section class="catalogue-section" aria-labelledby="catalogue-title">
+  <section class="catalogue-section" aria-labelledby="collection-title">
     <div class="container">
-      <h2 id="catalogue-title" class="sr-only">All products in the collection</h2>
+      <h2 id="collection-title" class="sr-only">All products in the collection</h2>
       <div class="catalogue-controls">
         <label class="search-field"><span>Search collection</span><span class="input-wrap"><Icon name="search" size={18} /><input type="search" name="search" placeholder="Name, SKU, material or tag" autocomplete="off" data-product-search /></span></label>
         <label><span>Category</span><select data-category-filter><option value="">All categories</option>{categories.map((category) => <option value={category}>{category}</option>)}</select></label>

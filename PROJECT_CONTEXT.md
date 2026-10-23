@@ -25,7 +25,7 @@ Visitors enquire by telephone or WhatsApp instead of purchasing through the webs
 ## Current business information
 
 - Current brand name: **Navira Jewels**
-- Brand status: provisional identity; trademark and domain availability have not been verified
+- Brand status: provisional identity; `navirajewels.in` is the selected domain, while trademark availability has not been verified
 - Product category: Navratna bangles
 - The Home-page hero marquee uses the customer-facing label **Panchaloha Bangles**.
 - Current catalogue: eight products, all with approved product photography
@@ -59,7 +59,7 @@ The user confirmed authorization to reuse one selected photograph from each of t
 | Coral Stone Bangles | Four images in `/images/products/coral-preview-05/` | `https://www.etsy.com/in-en/listing/4572300744/indian-bangles-coral-color-bangles-one`, `https://www.etsy.com/in-en/listing/4354800269/handcrafted-indian-bangles-golden-finish`, and `https://www.meesho.com/premium-quality-microplated-pearl-bangle/p/92vx05` |
 | Ruby Stone Bangles | Four images in `/images/products/ruby-preview-06/` | `https://madeforhers.in/products/bangle-41`, `https://dreamjwell.com/products/gold-tone-ruby-stone-set-of-4-bangles-dj-40710`, and `https://ajpunnagai.com/products/lovely-pink-ad-stone-bangle-set-of-4` |
 
-Customer-facing product URLs use clean slugs derived from the approved product names: `/catalogue/navratna-stone-bangles/`, `/catalogue/white-stone-bangles/`, `/catalogue/pearl-and-coral-bangles/`, `/catalogue/emerald-green-bangles/`, `/catalogue/coral-stone-bangles/`, `/catalogue/ruby-stone-bangles/`, `/catalogue/black-stone-bangles/`, and `/catalogue/white-pearl-stone-bangles/`. Preview-era wording and sequence numbers are not exposed in product routes. Existing internal content filenames and image directories may retain their historical names because they do not appear in customer-facing product URLs.
+Customer-facing product URLs use clean slugs derived from the approved product names: `/collection/navratna-stone-bangles/`, `/collection/white-stone-bangles/`, `/collection/pearl-and-coral-bangles/`, `/collection/emerald-green-bangles/`, `/collection/coral-stone-bangles/`, `/collection/ruby-stone-bangles/`, `/collection/black-stone-bangles/`, and `/collection/white-pearl-stone-bangles/`. Preview-era wording and sequence numbers are not exposed in product routes. Existing internal content filenames, component directories, and image directories may retain their historical names because they do not appear in customer-facing product URLs. The former `/catalogue/` routes are not published or redirected; `/collection/` is the only public product route.
 
 The original selected Meesho files for products 1–3 are 1024 pixels wide, retain AVIF encoding, and were not upscaled. Small serial numbers originally visible at the lower-left edge were removed using bottom-edge-only geometric crops; no jewellery, background, lighting, or colour details were reconstructed or retouched. Final original-image dimensions are 1024×1300, 1024×870, and 1024×872 pixels for products 1–3 respectively. Marketplace names, prices, specifications, reviews, and other claims were not imported. Alt text describes only visible characteristics and does not assert unverified materials or gemstones.
 
@@ -89,9 +89,9 @@ Each product image may optionally set `cardFit: "cover"` when its card preview s
 
 Full-frame card presentation is the intended standard for every catalogue product. As images are added to the remaining products one by one, review each image's crop and focal position and set `cardFit: "cover"` where needed so card frames do not show empty side bands. Do not bulk-change the current placeholders or existing products merely to enforce this rule; apply and visually verify it during each product's individual photography pass. Detail-page and zoom galleries should continue showing complete images without destructive cropping.
 
-The product-card navigation overlay styles live in the shared global stylesheet so the controls remain positioned inside product photographs across Home, Catalogue, and related-product grids, including during Astro development hot reloads.
+The product-card navigation overlay styles live in the shared global stylesheet so the controls remain positioned inside product photographs across Home, Collection, and related-product grids, including during Astro development hot reloads.
 
-The Home page Featured Edit retains its original three-card layout: three columns on desktop, two on tablet, and one on mobile. It does not use section-level carousel controls. Previous/next controls appear inside the photograph itself only when a displayed product has multiple images, matching the product-detail gallery. The existing small catalogue link remains in the section introduction, and a second, more prominent solid-maroon **View full catalogue** button is centered directly below the three featured cards. That lower CTA becomes full-width on narrow mobile screens. On desktop only, the Featured Edit uses a 72px bottom inset so the CTA does not leave an oversized empty area; the established global and mobile section spacing remains unchanged. White Stone Bangles is deliberately assigned `sortOrder: 2`, making it the second card in both the full Catalogue and the Home Featured Edit. The former second and third products move to positions three and four. The full Catalogue page remains a standard responsive grid with the same per-card image behavior.
+The Home page Featured Edit retains its original three-card layout: three columns on desktop, two on tablet, and one on mobile. It does not use section-level carousel controls. Previous/next controls appear inside the photograph itself only when a displayed product has multiple images, matching the product-detail gallery. The existing small collection link remains in the section introduction, and a second, more prominent solid-maroon **View full collection** button is centered directly below the three featured cards. That lower CTA becomes full-width on narrow mobile screens. On desktop only, the Featured Edit uses a 72px bottom inset so the CTA does not leave an oversized empty area; the established global and mobile section spacing remains unchanged. White Stone Bangles is deliberately assigned `sortOrder: 2`, making it the second card in both the full Collection and the Home Featured Edit. The former second and third products move to positions three and four. The full Collection page remains a standard responsive grid with the same per-card image behavior.
 
 Future product images may have different:
 
@@ -149,15 +149,17 @@ The About page's **A colourful tradition** section identifies the traditional Na
 - Sitemap: `@astrojs/sitemap`
 - Tests: Vitest
 - CMS: not included in version one
-- Hosting and domain: not selected
+- Hosting: GitHub Pages through the existing repository workflow
+- Domain: `navirajewels.in`, configured as the primary custom domain
+- URL behavior: local development uses root paths such as `http://127.0.0.1:4321/collection/`; production uses matching paths such as `https://navirajewels.in/collection/`
 
 Astro was chosen because the site is primarily static and benefits from minimal client-side JavaScript. Product access is kept behind `src/lib/products.ts` so a CMS can be introduced later without redesigning the pages.
 
 ## Implemented pages
 
 - `/` — Home page with hero, featured collection, value proposition, story, and contact callout
-- `/catalogue/` — Searchable and filterable product grid
-- `/catalogue/[slug]/` — Generated product-detail pages
+- `/collection/` — Searchable and filterable product grid
+- `/collection/[slug]/` — Generated product-detail pages
 - `/about/` — Navratna background, brand positioning, styling, and material-dependent comparisons
 - `/contact/` — Call and WhatsApp actions plus delivery, dispatch, response-time, and business-hours details; no address, map, or social links
 - `/404.html` — Custom not-found page
@@ -200,7 +202,7 @@ Routes, catalogue cards, filters, featured products, related products, and sitem
 
 The catalogue search icon is rendered by the shared Astro `Icon` child component. Its positioning selector must use `.input-wrap :global(svg)` so the parent page's scoped CSS reaches the child SVG and keeps the icon centred inside the search field. The search input, category selector, collection selector, and clear-filters control remain bottom-aligned in the responsive filter grid.
 
-The Catalogue introduction describes the collection as inspired by Navratna's rich tradition of colour and positions it for everyday elegance, festive moments, and special celebrations. It also tells visitors that more designs will be added soon without promising a specific launch date. Because every published product is currently available, the count badge reads dynamically as **“8 available designs”** rather than describing the products as previews. A second, visually distinct badge beside it reads **“More designs arriving soon”** and wraps cleanly with the count on narrow screens so the catalogue expansion is easy to notice.
+The Collection introduction describes the designs as inspired by Navratna's rich tradition of colour and positions them for everyday elegance, festive moments, and special celebrations. It also tells visitors that more designs will be added soon without promising a specific launch date. Because every published product is currently available, the count badge reads dynamically as **“8 available designs”** rather than describing the products as previews. A second, visually distinct badge beside it reads **“More designs arriving soon”** and wraps cleanly with the count on narrow screens so the collection expansion is easy to notice.
 
 ## Design system
 
@@ -217,7 +219,7 @@ On the Contact page, muted detail-value styling is scoped only to spans inside s
 
 The interface is mobile-first, supports 320px-wide screens, preserves visible keyboard focus, respects reduced-motion preferences, and uses minimum 44×44px interactive targets where appropriate. On screens wider than 640px, the Home hero presents the real Navratna Stone Bangles product photograph without illustrated orbit rings, floating stones, or the decorative `09`. A clearly visible 10-second alternate zoom moves between 1.02× and 1.10× scale; visitors who request reduced motion receive the same photograph without animation. The photograph is intentionally hidden on mobile while the hero copy and phrase strip remain visible.
 
-The Home hero keeps **Explore the catalogue** as its primary action. On screens wider than 640px, the secondary **Discover our story** link is visible and the catalogue enquiry note is hidden. On mobile screens up to 640px, **Discover our story** is hidden and the line **Catalogue only · Order/Enquire by call or WhatsApp** appears below the primary action. The global notice above the navigation still states that the website does not support online ordering.
+The Home hero keeps **Explore the collection** as its primary action. On screens wider than 640px, the secondary **Discover our story** link is visible and the collection enquiry note is hidden. On mobile screens up to 640px, **Discover our story** is hidden and the line **Collection only · Order/Enquire by call or WhatsApp** appears below the primary action. The global notice above the navigation still states that the website does not support online ordering.
 
 On screens up to 540px, the Home hero phrase strip switches from its desktop single-row presentation to a contained two-row grid, with **Panchaloha Bangles** centred above **Timeless Colour** and **Everyday Grace**. This keeps all three phrases legible without horizontal overflow. The trust-metrics grid gives the location column more width than the two numeric columns, and the Visakhapatnam metric uses a dedicated responsive type size so the place name remains on one line and within its cell on both desktop and mobile.
 
@@ -229,11 +231,11 @@ The Home-page story artwork centres the “Nine tones. One graceful whole.” ca
 
 There is no contact form or backend submission.
 
-A prominent notice appears above the primary navigation on every page: **“Catalogue only — no online ordering. To order/enquire, call us or message on WhatsApp.”** The Call and WhatsApp wording is linked to the configured phone number and the approved prefilled WhatsApp enquiry respectively. The shared **Have a piece in mind?** panel omits the repeated online-ordering sentence and instead directly invites visitors to call or WhatsApp for product information, sizing guidance, availability, and personal assistance. Its primary WhatsApp action is labeled **“Order/Enquire on WhatsApp.”**
+A prominent notice appears above the primary navigation on every page: **“Collection only — no online ordering. To order/enquire, call us or message on WhatsApp.”** The Call and WhatsApp wording is linked to the configured phone number and the approved prefilled WhatsApp enquiry respectively. The shared **Have a piece in mind?** panel omits the repeated online-ordering sentence and instead directly invites visitors to call or WhatsApp for product information, sizing guidance, availability, and personal assistance. Its primary WhatsApp action is labeled **“Order/Enquire on WhatsApp.”**
 
 Reusable enquiry panels, the Contact page, and the footer state that same-day delivery is available throughout Visakhapatnam and that orders across Andhra Pradesh and Telangana are dispatched within 24 business hours of being placed. They also retain the two-business-hour response expectation. These are service and dispatch statements, not a physical business address. Order coordination remains by call or WhatsApp; the website does not accept or create online orders.
 
-The Contact page phone card states that clients may call directly for product information, assistance, and orders. This describes a conversational phone-order channel and does not introduce website ordering.
+The Contact page hero uses the concise label **Direct enquiries**. Its phone card states that clients may call directly for product information, assistance, and orders. This describes a conversational phone-order channel and does not introduce website ordering.
 
 Social-media links and “Follow” sections are intentionally absent from the website until the business creates and supplies its profiles. Do not add dummy social links in the interim.
 
@@ -316,8 +318,8 @@ The implementation was verified with:
 
 - Replace the placeholder copy and specifications across all eight preview products with verified product information.
 - Reconfirm products 1–8 against the final physical catalogue.
-- Confirm the business name and complete any trademark/domain checks.
-- Replace `https://example.com` in `astro.config.mjs` with the production domain.
+- Confirm the business name and complete any required trademark checks.
+- Complete the DNS records and GitHub Pages custom-domain verification for `navirajewels.in`.
 - Reconfirm the telephone and WhatsApp number.
 - Run `pnpm test` and `pnpm build`.
 - Perform final accessibility, content, and device reviews using the real images and copy.

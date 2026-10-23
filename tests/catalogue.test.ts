@@ -7,6 +7,28 @@ import { siteConfig, whatsappUrl } from '../src/data/site-config';
 const projectRoot = fileURLToPath(new URL('..', import.meta.url));
 
 describe('catalogue foundations', () => {
+  it('uses the custom domain in production and root paths during local development', () => {
+    const astroConfig = readFileSync(join(projectRoot, 'astro.config.mjs'), 'utf8');
+    const cname = readFileSync(join(projectRoot, 'public/CNAME'), 'utf8').trim();
+
+    expect(astroConfig).toContain("site: 'https://navirajewels.in'");
+    expect(astroConfig).not.toContain("base: '/navratnabanglescollection'");
+    expect(astroConfig).not.toContain("const base = '/navratnabanglescollection'");
+    expect(cname).toBe('navirajewels.in');
+  });
+
+  it('publishes collection URLs without legacy catalogue routes', () => {
+    const header = readFileSync(join(projectRoot, 'src/components/layout/Header.astro'), 'utf8');
+    const productCard = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
+
+    expect(existsSync(join(projectRoot, 'src/pages/collection/index.astro'))).toBe(true);
+    expect(existsSync(join(projectRoot, 'src/pages/collection/[slug].astro'))).toBe(true);
+    expect(header).toContain("href: '/collection/'");
+    expect(productCard).toContain('/collection/${data.slug}/');
+    expect(existsSync(join(projectRoot, 'src/pages/catalogue/index.astro'))).toBe(false);
+    expect(existsSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'))).toBe(false);
+  });
+
   it('publishes the current eight product entries', () => {
     const entries = readdirSync(join(projectRoot, 'src/content/products')).filter((file) => file.endsWith('.md'));
     expect(entries).toHaveLength(8);
@@ -65,7 +87,7 @@ describe('catalogue foundations', () => {
   });
 
   it('makes the upcoming catalogue expansion visible beside the available-design count', () => {
-    const cataloguePage = readFileSync(join(projectRoot, 'src/pages/catalogue/index.astro'), 'utf8');
+    const cataloguePage = readFileSync(join(projectRoot, 'src/pages/collection/index.astro'), 'utf8');
 
     expect(cataloguePage).toContain('class="catalogue-status"');
     expect(cataloguePage).toContain('class="catalogue-expansion-note">More designs arriving soon</span>');
@@ -212,7 +234,7 @@ describe('catalogue foundations', () => {
       'Elegant Gold-Like Appearance',
     ]);
 
-    const detailPage = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detailPage = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
     expect(detailPage).toContain('<h2>Product highlights</h2>');
     expect(detailPage).toContain('siteConfig.productHighlights.map');
   });
@@ -279,7 +301,7 @@ describe('catalogue foundations', () => {
     const schema = readFileSync(join(projectRoot, 'src/content.config.ts'), 'utf8');
     expect(schema).toContain('mrp: z.number().nonnegative().optional()');
 
-    const detailPage = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detailPage = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
     expect(detailPage).toContain("import ProductPrice from '@/components/catalogue/ProductPrice.astro';");
     expect(detailPage).toContain('mrp={data.mrp}');
     expect(detailPage).toContain('piecesPerSet={data.piecesPerSet}');
@@ -319,7 +341,7 @@ describe('catalogue foundations', () => {
 
   it('renders card sizes as separate chips and uses the approved colour labels', () => {
     const card = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
-    const detail = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detail = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
     const globalStyles = readFileSync(join(projectRoot, 'src/styles/global.css'), 'utf8');
     expect(card).toContain('<dt>Colour</dt>');
     expect(card).toContain('class="card-size-options"');
@@ -336,7 +358,7 @@ describe('catalogue foundations', () => {
   });
 
   it('places the combined product details block below everyday-ease highlights', () => {
-    const detail = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detail = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
     const highlightsPosition = detail.indexOf('class="product-highlights"');
     const factsPosition = detail.indexOf('class="product-facts"');
     const featuresPosition = detail.indexOf('<summary>Features</summary>');
@@ -347,7 +369,7 @@ describe('catalogue foundations', () => {
   });
 
   it('replaces the product story with responsive two-column product information', () => {
-    const detail = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detail = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
 
     expect(detail).not.toContain('Product story');
     expect(detail).not.toContain('<Content />');
@@ -359,7 +381,7 @@ describe('catalogue foundations', () => {
   });
 
   it('places available size selection above the product enquiry action', () => {
-    const detailPage = readFileSync(join(projectRoot, 'src/pages/catalogue/[slug].astro'), 'utf8');
+    const detailPage = readFileSync(join(projectRoot, 'src/pages/collection/[slug].astro'), 'utf8');
     const globalStyles = readFileSync(join(projectRoot, 'src/styles/global.css'), 'utf8');
     const statusPosition = detailPage.indexOf('class="status-row"');
     const sizePosition = detailPage.indexOf('class="top-size-selector"');
@@ -439,7 +461,7 @@ describe('catalogue foundations', () => {
 
   it('keeps the catalogue search icon positioned inside its input', () => {
     const cataloguePage = readFileSync(
-      join(projectRoot, 'src/pages/catalogue/index.astro'),
+      join(projectRoot, 'src/pages/collection/index.astro'),
       'utf8',
     );
     expect(cataloguePage).toContain('.input-wrap :global(svg) {');
@@ -473,7 +495,7 @@ describe('catalogue foundations', () => {
     const ctaPosition = home.indexOf('class="featured-catalogue-cta"');
 
     expect(ctaPosition).toBeGreaterThan(gridPosition);
-    expect(home).toContain('<a class="button" href={siteUrl(\'/catalogue/\')}>View full collection <Icon name="arrow" /></a>');
+    expect(home).toContain('<a class="button" href={siteUrl(\'/collection/\')}>View full collection <Icon name="arrow" /></a>');
     expect(home).toContain('.featured-catalogue-cta { display: flex; justify-content: center; margin-top:');
     expect(home).toContain('.featured-catalogue-cta .button { width: 100%; justify-content: center; }');
   });
@@ -579,8 +601,8 @@ describe('catalogue foundations', () => {
   it('keeps commerce and account flows out of application source', () => {
     const sourceFiles = [
       'src/pages/index.astro',
-      'src/pages/catalogue/index.astro',
-      'src/pages/catalogue/[slug].astro',
+      'src/pages/collection/index.astro',
+      'src/pages/collection/[slug].astro',
       'src/pages/about.astro',
       'src/pages/contact.astro',
     ];
@@ -592,13 +614,13 @@ describe('catalogue foundations', () => {
 
   it('derives links from product slugs instead of hard-coded detail routes', () => {
     const productCard = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
-    expect(productCard).toContain('/catalogue/${data.slug}/');
+    expect(productCard).toContain('/collection/${data.slug}/');
   });
 
-  it('uses Collection in public copy while preserving catalogue routes', () => {
+  it('uses Collection in public copy and collection routes', () => {
     const expectedCopy: Record<string, string[]> = {
       'src/components/layout/Header.astro': [
-        "{ href: '/catalogue/', label: 'Collection' }",
+        "{ href: '/collection/', label: 'Collection' }",
         '<strong>Collection only — no online ordering.</strong>',
         '<p>Collection enquiries</p>',
       ],
@@ -618,7 +640,7 @@ describe('catalogue foundations', () => {
         '>View the full collection</a>',
         '>View full collection <Icon',
       ],
-      'src/pages/catalogue/index.astro': [
+      'src/pages/collection/index.astro': [
         'title="Collection"',
         "{ label: 'Collection' }",
         'growing collection soon',
@@ -627,8 +649,8 @@ describe('catalogue foundations', () => {
         'Collection only · Enquire by call or WhatsApp',
         'see the full collection',
       ],
-      'src/pages/catalogue/[slug].astro': [
-        "{ label: 'Collection', href: '/catalogue/' }",
+      'src/pages/collection/[slug].astro': [
+        "{ label: 'Collection', href: '/collection/' }",
         '>View the full collection</a>',
       ],
       'src/pages/about.astro': [
@@ -638,7 +660,7 @@ describe('catalogue foundations', () => {
       'src/pages/contact.astro': [
         'Navratna bangle collection.',
         'for collection and product information',
-        'Direct collection enquiries',
+        'Direct enquiries',
         'future collection additions',
         'ready-to-send collection enquiry',
       ],
@@ -656,9 +678,9 @@ describe('catalogue foundations', () => {
     const header = readFileSync(join(projectRoot, 'src/components/layout/Header.astro'), 'utf8');
     const home = readFileSync(join(projectRoot, 'src/pages/index.astro'), 'utf8');
     const card = readFileSync(join(projectRoot, 'src/components/catalogue/ProductCard.astro'), 'utf8');
-    expect(header).toContain("href: '/catalogue/'");
-    expect(home).toContain("siteUrl('/catalogue/')");
-    expect(card).toContain('/catalogue/${data.slug}/');
+    expect(header).toContain("href: '/collection/'");
+    expect(home).toContain("siteUrl('/collection/')");
+    expect(card).toContain('/collection/${data.slug}/');
   });
 
   it('shows the no-online-ordering message with direct enquiry options site-wide', () => {
@@ -728,7 +750,7 @@ describe('catalogue foundations', () => {
       expect(readFileSync(join(projectRoot, file), 'utf8')).not.toMatch(/working brand/i);
     }
 
-    const cataloguePage = readFileSync(join(projectRoot, 'src/pages/catalogue/index.astro'), 'utf8');
+    const cataloguePage = readFileSync(join(projectRoot, 'src/pages/collection/index.astro'), 'utf8');
     expect(cataloguePage).not.toContain('9 preview products');
     expect(cataloguePage).toContain('{products.length} available designs');
   });
@@ -736,8 +758,8 @@ describe('catalogue foundations', () => {
   it('keeps preview and placeholder language out of customer-facing catalogue copy', () => {
     const publicFiles = [
       'src/pages/index.astro',
-      'src/pages/catalogue/index.astro',
-      'src/pages/catalogue/[slug].astro',
+      'src/pages/collection/index.astro',
+      'src/pages/collection/[slug].astro',
       'src/pages/contact.astro',
       'src/components/catalogue/ProductCard.astro',
     ];

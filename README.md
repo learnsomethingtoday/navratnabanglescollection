@@ -116,7 +116,7 @@ Categories, collections, search terms, product routes, related products, and the
 ## Before launch
 
 - Replace the brand name if required and verify trademark/domain availability.
-- Verify the production URL and base path in `astro.config.mjs`.
+- Verify the production custom domain in `astro.config.mjs` if it changes.
 - Replace all preview product copy and placeholder artwork with verified content.
 - Confirm the telephone and WhatsApp number.
 
@@ -124,8 +124,8 @@ No hosting provider or CMS is assumed. The generated `dist/` folder can be deplo
 
 ## GitHub Pages
 
-Production URL: https://learnsomethingtoday.github.io/navratnabanglescollection/
+Production URL: https://navirajewels.in/
 
 The workflow in `.github/workflows/deploy.yml` tests, builds, and deploys changes pushed to `main`. In repository Settings → Pages, select GitHub Actions as the publishing source. GitHub Pages requires a public repository on the current account plan.
 
-Internal links and public images use `siteUrl()` to include the repository base path. Keep this helper when adding new routes or images.
+The custom domain is stored in `public/CNAME`, and Astro generates root-relative paths such as `/collection/` for both localhost and production. Internal links and public images continue to use `siteUrl()` so URL handling remains consistent.

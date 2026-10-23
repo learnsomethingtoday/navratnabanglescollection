@@ -10,7 +10,7 @@ const searchText = [data.name, data.sku, ...data.categories, data.collection, ..
 ---
 <article class="product-card" data-product-card data-search={searchText} data-categories={data.categories.join('|')} data-collection={data.collection ?? ''}>
   <div class="product-media" data-card-gallery>
-    <a class="product-image" href={siteUrl(`/catalogue/${data.slug}/`)} aria-label={`View details for ${data.name}`}>
+    <a class="product-image" href={siteUrl(`/collection/${data.slug}/`)} aria-label={`View details for ${data.name}`}>
       {data.images.map((image, index) => (
         <img src={siteUrl(image.src)} alt={image.alt} loading="lazy" width="900" height="900" data-card-image={index} hidden={index !== 0} style={`object-fit:${image.cardFit ?? 'contain'};object-position:${image.focalPosition ?? 'center'}`} />
       ))}
@@ -23,7 +23,7 @@ const searchText = [data.name, data.sku, ...data.categories, data.collection, ..
   </div>
   <div class="product-content">
     <div class="product-meta"><span>{data.collection ?? data.categories[0]}</span><span>{formatAvailability(data.availability)}</span></div>
-    <h3><a href={siteUrl(`/catalogue/${data.slug}/`)}>{data.name}</a></h3>
+    <h3><a href={siteUrl(`/collection/${data.slug}/`)}>{data.name}</a></h3>
     <p>{data.summary}</p>
     <div class="card-price">
       <ProductPrice price={data.price} mrp={data.mrp} currency={data.currency} showPrice={data.showPrice} piecesPerSet={data.piecesPerSet} compact />
@@ -35,7 +35,7 @@ const searchText = [data.name, data.sku, ...data.categories, data.collection, ..
       <div><dt>Colour</dt><dd>{data.colors.map((color) => color.name).join(', ')}</dd></div>
       <div><dt>SKU</dt><dd>{data.sku}</dd></div>
     </dl>
-    <a class="card-link" href={siteUrl(`/catalogue/${data.slug}/`)}>View details <Icon name="arrow" size={17} /></a>
+    <a class="card-link" href={siteUrl(`/collection/${data.slug}/`)}>View details <Icon name="arrow" size={17} /></a>
   </div>
 </article>
 <script>
